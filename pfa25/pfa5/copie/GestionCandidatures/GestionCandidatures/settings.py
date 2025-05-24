@@ -85,10 +85,10 @@ WSGI_APPLICATION = 'GestionCandidatures.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gestion',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'NAME': 'houdachiker$pfa',
+        'USER': 'houdachiker',
+        'PASSWORD': 'houda123',
+        'HOST': 'houdachiker.mysql.pythonanywhere-services.com',
         'PORT': '3306',
     }
 }
