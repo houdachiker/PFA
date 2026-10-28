@@ -4,1827 +4,508 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CareerJob - Trouvez Votre Carrière Idéale</title>
+  <meta name="color-scheme" content="dark" />
+  <title>CareerJob - Espace Recruteur</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <style>
-/* Variables and Base Styles */
-:root {
-  --primary-color: #3498db;
-  --primary-dark: #2980b9;
-  --secondary-color: #2c3e50;
-  --background-color: #f8f9fa;
-  --card-bg: #ffffff;
-  --text-color: #333333;
-  --border-radius: 8px;
-  --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  --transition: all 0.3s ease;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* Header */
-.header {
-  background: linear-gradient(135deg, #3498db, #2c3e50);
-  padding: 0 2rem;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  height: 70px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logo img {
-  height: 35px;
-  margin-right: 10px;
-}
-
-.logo-text {
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.nav-menu {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.nav-link {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  padding: 0.6rem 1.2rem;
-  border-radius: var(--border-radius);
-  transition: var(--transition);
-}
-
-.nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Main Content */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 100px 20px 50px;
-}
-
-.section-title {
-  font-size: 2rem;
-  text-align: center;
-  color: var(--secondary-color);
-  margin-bottom: 2rem;
-  font-weight: 700;
-}
-
-/* Button */
-.btn-primary {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 0.10rem 1.10rem;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: var(--transition);
-  margin: 0 auto 2rem;
-  height: 50px;
-}
-
-.btn-primary:hover {
-  background-color: var(--primary-dark);
-  transform: translateY(-3px);
-}
-
-/* Job Cards */
-.job-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 25px;
-}
-
-.job-card {
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  padding: 1.5rem;
-  transition: var(--transition);
-  border-left: 4px solid var(--primary-color);
-  position: relative;
-}
-
-.job-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.job-card h3 {
-  color: var(--secondary-color);
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-}
-
-.job-meta {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  color: #666;
-}
-
-.job-meta i {
-  width: 20px;
-  color: var(--primary-color);
-  margin-right: 0.5rem;
-}
-
-.job-tag {
-  display: inline-block;
-  background-color: rgba(52, 152, 219, 0.1);
-  color: var(--primary-color);
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.job-salary {
-  color: #f39c12;
-  font-weight: 600;
-  margin: 0.8rem 0;
-}
-
-.btn-group {
-  display: flex;
-  gap: 10px;
-  margin-top: 1rem;
-}
-
-.btn-action {
-  flex: 1;
-  padding: 0.6rem 0;
-  border-radius: var(--border-radius);
-  text-align: center;
-  font-weight: 500;
-  cursor: pointer;
-  transition: var(--transition);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3rem;
-  text-decoration: none;
-}
-
-.btn-delete {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  width: 130px;
-  height: 50px;
-}
-
-.btn-delete:hover {
-  background-color: var(--primary-dark);
-}
-
-.btn-edit {
-  background-color: #0f2c64;
-  color: white;
-  border: none;
-}
-
-.btn-edit:hover {
-  background-color: var(--primary-dark);
-}
-
-/* Enhanced Form Styling */
-.form-container {
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  padding: 2.5rem;
-  margin-bottom: 2.5rem;
-  display: none;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  border-top: 5px solid var(--primary-color);
-  transition: all 0.4s ease;
-  
-}
-
-.form-container.show {
-  display: block;
-  animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.form-title {
-  font-size: 1.5rem;
-  color: var(--secondary-color);
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-  text-align: center;
-  position: relative;
-}
-
-.form-title:after {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 3px;
-  background-color: var(--primary-color);
-  margin: 0.5rem auto 0;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-  position: relative;
-  
-  
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  font-size: 0.95rem;
-  color: var(--secondary-color);
-  transition: all 0.3s;
-}
-
-.form-control {
-  width: 100%;
-  padding: 0.85rem 1rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  
-}
-
-.form-control:focus {
-  border-color: var(--primary-color);
-  outline: none;
-  background-color: #fff;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
-}
-
-textarea.form-control {
-  min-height: 120px;
-  resize: vertical;
-  
-}
-
-.form-row {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  
-}
-
-.form-row .form-group {
-  flex: 1 1 300px;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 2rem;
-  gap: 15px;
-  
-}
-
-.btn-submit {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 0.85rem 2rem;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex-grow: 1;
-}
-
-.btn-submit:hover {
-  background-color: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.btn-cancel {
-  background-color: transparent;
-  color: #777;
-  border: 1px solid #ddd;
-  padding: 0.85rem 1.5rem;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-cancel:hover {
-  background-color: #f5f5f5;
-  color: #333;
-}
-
-.form-control::placeholder {
-  color: #aaa;
-  opacity: 1;
- 
-}
-
-.input-icon {
-  position: absolute;
-  top: 38px;
-  right: 12px;
-  color: #aaa;
-}
-
-.form-help {
-  font-size: 0.8rem;
-  color: #777;
-  margin-top: 0.3rem;
-}
-
-.form-error {
-  color: #e74c3c;
-  font-size: 0.8rem;
-  margin-top: 0.3rem;
-  display: none;
-}
-
-.form-error.show {
-  display: block;
-}
-
-.required-field::after {
-  content: "*";
-  color: #e74c3c;
-  margin-left: 4px;
-}
-
-.form-check {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-  
-}
-
-.form-check-input {
-  margin-right: 10px;
-  width: 18px;
-  height: 18px;
-  
-}
-
-.form-check-label {
-  font-size: 0.9rem;
-  color: #555;
-  
-}
-
-/* Alert messages */
-.alert {
-  padding: 1rem;
-  border-radius: var(--border-radius);
-  margin-bottom: 1rem;
-}
-
-.alert-success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-.alert-error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
-/* Candidature section */
-.candidature-section {
-  margin-top: 3rem;
-  width: 100%;
-}
-
-.candidature-list {
-  display: grid;
-  grid-template-columns: 1fr; /* Une seule colonne pour la liste des candidatures */
-  gap: 20px;
-  margin-top: 1.5rem;
-  width: 100%;
-}
-
-.candidature-card {
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  padding: 1.5rem;
-  transition: var(--transition);
-  width: 100%;
-  height: 210px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
- 
-}
-
-.candidature-card form {
-  display: flex;
-  gap: 10px;
-  position: relative;
-  top: -100px;
-  align-self: flex-end;
-  
-}
-
-.candidature-card select {
-  padding: 0.4rem;
-  border: 1px solid #ddd;
-  border-radius: var(--border-radius);
-  width: 120px;
-  height: 50px;
-}
-
-@media (max-width: 768px) {
-  .job-cards {
-    grid-template-columns: 1fr;
-  }
-  
-  .nav-menu {
-    display: none;
-  
-  }
-  
-  .form-row {
-    flex-direction: column;
-    gap: 0;
-  }
-  
-  .form-actions {
-    flex-direction: column;
-  }
-  
-  .btn-submit, .btn-cancel {
-    width: 100%;
-  }
-}
-
-.show-more-container {
-  text-align: center;
-  margin: 30px 0;
-  
-}
-
-.show-all-btn {
-  background-color: transparent;
-  color: rgb(24, 180, 241);
-  border: 2px solid #0f2c64;
-  padding: 0.5rem 1.2rem;
-  border-radius: 999px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.show-all-btn:hover {
-  background-color: var(--primary-dark);
-  color: white;
-}
-
-#candidature-list {
-  display: none;
-  width: 100%;
-}
-
-/* Styles pour la section "Comment ça marche" */
-.process-section {
-  background: linear-gradient(135deg, #3498db, #2c3e50);
-  color: white;
-  padding: 3rem 0;
-  width: 100%;
-}
-
-.process-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* Titre de la section */
-.section-title {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-  color: white;
-}
-
-.title-underline {
-  width: 100px;
-  height: 3px;
-  background-color: #f39c12;
-  margin: 0 auto 40px;
-}
-
-/* Conteneur du processus */
-.process-container {
-  position: relative;
-}
-
-/* Ligne de texte au-dessus des cercles */
-.process-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
-}
-
-.process-step-text {
-  width: 180px;
-  text-align: center;
-  font-size: 14px;
-}
-
-.empty-space {
-  width: 20px;
-}
-
-/* Cercles et lignes */
-.process-steps {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-}
-
-.step-circle {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 3px solid white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  position: relative;
-  z-index: 2;
-  flex-shrink: 0;
-}
-
-.step-number {
-  font-size: 36px;
-  font-weight: bold;
-}
-
-.step-line {
-  flex-grow: 1;
-  height: 3px;
-  background-color: #f39c12;
-  position: relative;
-  z-index: 1;
-  min-width: 50px;
-}
-
-.section-title2 {
-  color: var(--primary-dark);
-  text-align: center;
-  margin-bottom: 45px;
-  font-size: 2rem;
-}
-
-/* Styles pour la modal */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal {
-  background-color: var(--card-bg);
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  width: 90%;
-  max-width: 700px;
-  padding: 2rem;
-  position: relative;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.modal-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--secondary-color);
-}
-
-.close-modal {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #777;
-  transition: color 0.3s;
-}
-
-.close-modal:hover {
-  color: #333;
-}
- #form-container .form-group input[type="text"],
-#form-container .form-group input[type="email"],
-#form-container .form-group input[type="number"],
-#form-container .form-group select,
-#form-container .form-group textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    box-sizing: border-box;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-#form-container .form-group input[type="text"]:focus,
-#form-container .form-group input[type="email"]:focus,
-#form-container .form-group input[type="number"]:focus,
-#form-container .form-group select:focus,
-#form-container .form-group textarea:focus {
-    border-color: #4a90e2;
-    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
-    outline: none;
-}
-
-/* Styles pour les boutons circulaires d'accessibilité */
-.circular-buttons {
-  position: fixed;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  z-index: 1000;
-}
-
-.circular-button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: var(--secondary-color);
-  color: white;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: all 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.circular-button:hover {
-  background-color: var(--primary-color);
-  transform: scale(1.05);
-}
-
-.circular-button.active {
-  background-color: var(--primary-color);
-  transform: scale(1.1);
-}
-
-/* Overlay */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 998;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s;
-}
-
-.overlay.active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: all; /* Assurez-vous que les clics sur l'overlay fonctionnent */
-}
-
-/* Panels - CORRIGÉ */
-.panel {
-  position: fixed;
-  top: 0;
-  right: -400px; /* Assurez-vous qu'il est hors écran par défaut */
-  width: 350px; /* Limitez la largeur */
-  height: 100%;
-  background-color: white;
-  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-  z-index: 999;
-  padding: 20px;
-  overflow-y: auto;
-  transition: right 0.4s ease-in-out;
-}
-
-.panel.active {
-  right: 0;
-}
-
-.panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-.panel-title {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--secondary-color);
-}
-
-.close-panel {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #7f8c8d;
-  transition: color 0.3s;
-}
-
-.close-panel:hover {
-  color: #e74c3c;
-}
-
-/* Contact info styles */
-.contact-info {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
-}
-
-.contact-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.contact-icon {
-  margin-right: 10px;
-  color: var(--primary-color);
-  font-size: 18px;
-}
-
-/* FAQ styles */
-.faq-item {
-  margin-bottom: 15px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 15px;
-}
-
-.faq-question {
-  font-weight: 500;
-  color: var(--secondary-color);
-  margin-bottom: 5px;
-  cursor: pointer;
-}
-
-.faq-answer {
-  color: #7f8c8d;
-  display: none;
-  padding: 10px 0;
-}
-
-.faq-question.active + .faq-answer {
-  display: block;
-}
-
-/* Accessibility styles */
-.accessibility-option {
-  margin-bottom: 20px;
-}
-
-.accessibility-title {
-  font-weight: 500;
-  color: var(--secondary-color);
-  margin-bottom: 10px;
-}
-
-.font-size-buttons, .contrast-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.font-btn, .contrast-btn {
-  padding: 5px 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: #f8f9fa;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.font-btn:hover, .contrast-btn:hover {
-  background-color: #e9ecef;
-}
-
-.font-btn.active, .contrast-btn.active {
-  background-color: var(--primary-color);
-  color: white;
-  border-color: var(--primary-color);
-}
-
-/* Candidat card styles */
-.candidat-card {
-  background-color: var(--card-bg);
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  padding: 1.2rem;
-  margin-bottom: 1rem;
-  border-left: 4px solid var(--primary-color);
-}
-
-.candidat-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.8rem;
-  padding-bottom: 0.8rem;
-  border-bottom: 1px solid #eee;
-}
-
-.candidat-header h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  color: var(--secondary-color);
-}
-
-.candidat-status {
-  display: inline-block;
-  padding: 0.3rem 0.6rem;
-  border-radius: 99px;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.status-en-attente {
-  background-color: #fef3c7;
-  color: #92400e;
-}
-
-.status-accepte {
-  background-color: #dcfce7;
-  color: #166534;
-}
-
-.status-refuse {
-  background-color: #fee2e2;
-  color: #991b1b;
-}
-
-.candidat-info {
-  margin-bottom: 1rem;
-}
-
-.candidat-detail {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.candidat-detail i {
-  width: 20px;
-  color: var(--primary-color);
-  margin-right: 0.5rem;
-}
-
-.candidat-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.btn-cv {
-  background-color: #f39c12;
-  color: white;
-}
-
-.btn-contact {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-/* Bouton d'urgence */
-#emergency-close {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 2000;
-  background-color: red;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  display: none;
-  cursor: pointer;
-  font-weight: bold;
-  border: none;
-}
-
-#emergency-close:hover {
-  background-color: darkred;
-}
+    :root {
+      --bg: #070b24; --card: rgba(22,28,74,.92); --field: rgba(255,255,255,.05);
+      --line: rgba(255,255,255,.12); --glass: rgba(255,255,255,.06); --glass-2: rgba(255,255,255,.10);
+      --txt: #f2f5ff; --muted: #9aa6c7; --blue: #3d6bff; --blue-2: #6f9bff;
+      --green: #4ade9a; --yellow: #f7c948; --red: #ff7a8a;
+      --grad: linear-gradient(135deg, #4f7bff, #3d6bff);
+      --glow: 0 10px 26px rgba(61,107,255,.45); --t: .2s ease;
+    }
+    body.hc { --muted: #e3e8ff; --line: rgba(255,255,255,.32); --glass: rgba(255,255,255,.12); --field: rgba(255,255,255,.12); }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body {
+      font-family: 'Poppins', sans-serif; color: var(--txt); line-height: 1.6; min-height: 100vh; overflow-x: hidden;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(760px 620px at 0% 0%, rgba(37,80,214,.58), transparent 70%),
+        radial-gradient(620px 520px at 50% 45%, rgba(14,110,130,.28), transparent 70%),
+        radial-gradient(760px 560px at 100% 100%, rgba(80,52,170,.48), transparent 70%);
+      background-attachment: fixed;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+    header, main, section { position: relative; z-index: 1; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+    :focus-visible { outline: 2px solid var(--blue-2); outline-offset: 2px; }
+    select option { background: #101645; color: #fff; }
+
+    /* Header */
+    .header { position: sticky; top: 0; z-index: 900; padding: .8rem 1rem 0; }
+    .header-inner {
+      max-width: 1180px; margin: 0 auto; padding: .5rem .6rem .5rem .7rem;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+      background: rgba(12,18,52,.8); backdrop-filter: blur(16px); border: 1px solid var(--line); border-radius: 18px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+    }
+    .logo { display: flex; align-items: center; gap: .65rem; font-size: 1.3rem; font-weight: 600; }
+    .logo-mark { width: 42px; height: 42px; display: grid; place-items: center; background: rgba(255,255,255,.93); border-radius: 12px; box-shadow: 0 6px 18px rgba(61,107,255,.4); }
+    .logo-mark img { height: 28px; width: auto; }
+    .nav-menu { display: flex; gap: .15rem; align-items: center; }
+    .nav-link { display: inline-flex; align-items: center; gap: .45rem; padding: .5rem .9rem; border-radius: 12px; color: var(--muted); font-size: .88rem; font-weight: 500; transition: background var(--t), color var(--t); }
+    .nav-link i { color: var(--blue-2); }
+    .nav-link:hover { background: var(--glass-2); color: #fff; }
+    .nav-link.logout, .nav-link.logout i { color: var(--red); }
+
+    /* Layout */
+    .container { max-width: 1180px; margin: 0 auto; padding: 2.5rem 1.25rem 3rem; }
+    .page-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .page-head h1 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); font-weight: 600; line-height: 1.2; }
+    .page-head p { color: var(--muted); font-size: .95rem; }
+    .section-title { font-size: 1.4rem; font-weight: 600; margin: 2.5rem 0 1.1rem; display: flex; align-items: center; gap: .8rem; }
+    .section-title::after { content: ""; width: 48px; height: 4px; border-radius: 2px; background: var(--grad); }
+    .tag { font-size: .75rem; color: var(--muted); background: var(--glass-2); padding: .2rem .8rem; border-radius: 999px; white-space: nowrap; }
+    .pill { flex: none; font-size: .75rem; font-weight: 500; padding: .22rem .75rem; border-radius: 999px; color: #a9bfff; background: rgba(111,155,255,.2); white-space: nowrap; }
+    .status-en-attente { color: var(--yellow); background: rgba(247,201,72,.16); }
+    .status-accepte { color: var(--green); background: rgba(74,222,154,.15); }
+    .status-refuse { color: var(--red); background: rgba(255,122,138,.15); }
+    .avatar { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; font-size: .78rem; font-weight: 600; color: #b9c8ff; background: rgba(111,155,255,.18); border: 1px solid rgba(111,155,255,.28); }
+    .glass { background: var(--glass); border: 1px solid var(--line); border-radius: 22px; backdrop-filter: blur(14px); box-shadow: 0 30px 70px rgba(0,0,0,.3); }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; border: 0; cursor: pointer; padding: .7rem 1.3rem; border-radius: 12px; font-size: .9rem; font-weight: 600; color: #fff; transition: transform var(--t), filter var(--t), box-shadow var(--t); }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.12); }
+    .btn-primary { background: var(--grad); box-shadow: var(--glow); }
+    .btn-soft { background: rgba(111,155,255,.18); color: #b9c8ff; }
+    .btn-danger { background: rgba(255,122,138,.15); color: var(--red); }
+    .btn-ghost { background: var(--glass); border: 1px solid var(--line); color: var(--muted); }
+
+    .messages { margin-bottom: 1rem; }
+    .alert { padding: .8rem 1rem; border-radius: 12px; margin-bottom: .6rem; font-size: .9rem; border-left: 4px solid var(--blue-2); background: rgba(111,155,255,.14); }
+    .alert-success { border-color: var(--green); background: rgba(74,222,154,.13); color: #c7f6df; }
+    .alert-error, .alert-danger { border-color: #ff5a78; background: rgba(255,90,120,.14); color: #ffc2cf; }
+
+    /* Formulaire de publication */
+    .form-container { display: none; padding: 2rem; margin-bottom: 1rem; }
+    .form-container.show { display: block; animation: rise .35s both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    .form-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 1.2rem; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 1rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-label { display: block; margin-bottom: .3rem; font-size: .8rem; font-weight: 500; color: var(--muted); }
+    .form-container input, .form-container select, .form-container textarea, .form-control {
+      width: 100%; padding: .8rem 1rem; font: inherit; font-size: .95rem; color: #fff;
+      background: var(--field); border: 1px solid var(--line); border-radius: 14px; transition: border-color var(--t), box-shadow var(--t);
+    }
+    .form-container textarea, textarea.form-control { min-height: 120px; resize: vertical; }
+    .form-container input:focus, .form-container select:focus, .form-container textarea:focus, .form-control:focus { outline: none; border-color: var(--blue-2); box-shadow: 0 0 0 4px rgba(111,155,255,.18); }
+    .form-container input::placeholder, .form-control::placeholder { color: #8b97bf; }
+    .form-actions { display: flex; justify-content: flex-end; gap: .7rem; margin-top: .5rem; }
+
+    /* Offres */
+    .job-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1.1rem; }
+    .job-card { display: flex; flex-direction: column; padding: 1.4rem; transition: transform var(--t), border-color var(--t), background var(--t); }
+    .job-card:hover { transform: translateY(-3px); border-color: rgba(111,155,255,.5); background: var(--glass-2); }
+    .job-top { display: flex; gap: .85rem; align-items: center; }
+    .job-card h3 { font-size: 1.05rem; font-weight: 600; line-height: 1.3; }
+    .job-meta { display: flex; align-items: center; gap: .5rem; color: var(--muted); font-size: .85rem; }
+    .job-meta i { width: 1rem; text-align: center; color: var(--blue-2); }
+    .job-info { margin-top: .9rem; display: grid; gap: .15rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
+    .job-salary { margin-top: .8rem; color: var(--yellow); font-weight: 600; font-size: .95rem; }
+    .job-desc { margin-top: .5rem; font-size: .88rem; font-weight: 300; color: #c5cde6; }
+    .btn-group { display: flex; gap: .6rem; margin-top: auto; padding-top: 1.2rem; }
+    .btn-group form { flex: 1; display: flex; }
+    .btn-group .btn { flex: 1; }
+    .empty { color: var(--muted); padding: 2rem; text-align: center; border: 1px dashed var(--line); border-radius: 18px; grid-column: 1 / -1; }
+
+    /* Candidatures */
+    .cand-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    #candidature-list { display: none; margin-top: .5rem; overflow: hidden; }
+    .candidature-card { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.4rem; border-top: 1px solid var(--line); flex-wrap: wrap; }
+    .candidature-card:first-child { border-top: 0; }
+    .cand-info { flex: 1; min-width: 180px; line-height: 1.4; }
+    .cand-info b { display: block; font-weight: 500; }
+    .cand-info small { color: var(--muted); font-size: .82rem; }
+    .candidature-card form { display: flex; gap: .5rem; align-items: center; }
+    .candidature-card select { width: auto; min-width: 130px; padding: .6rem .9rem; font: inherit; font-size: .88rem; color: #fff; background: var(--field); border: 1px solid var(--line); border-radius: 12px; }
+
+    /* Comment ça marche */
+    .process-section { padding: 2rem 1.5rem 2.2rem; }
+    .process-section .section-title { margin-top: 0; margin-bottom: 1.8rem; }
+    .steps { display: grid; grid-template-columns: repeat(5, 1fr); }
+    .step { position: relative; text-align: center; padding: 0 .6rem; font-size: .88rem; color: #dbe3ff; }
+    .step-circle { width: 56px; height: 56px; margin: 0 auto .9rem; display: grid; place-items: center; border-radius: 50%; font-size: 1.2rem; font-weight: 600; background: var(--grad); box-shadow: var(--glow); position: relative; z-index: 1; }
+    .step:not(:last-child)::after { content: ""; position: absolute; top: 28px; left: calc(50% + 36px); width: calc(100% - 72px); height: 2px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 6px, transparent 6px 12px); }
+
+    /* Dock + panneaux */
+    .dock { position: fixed; top: 50%; right: 18px; transform: translateY(-50%); display: flex; flex-direction: column; gap: .7rem; z-index: 850; }
+    .dock button { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line); background: rgba(14,20,58,.9); color: var(--blue-2); font-size: 1.05rem; cursor: pointer; backdrop-filter: blur(10px); box-shadow: 0 10px 26px rgba(0,0,0,.4); transition: transform var(--t), background var(--t), color var(--t); }
+    .dock button:hover, .dock button.active { background: var(--grad); color: #fff; transform: scale(1.08); }
+    .overlay { position: fixed; inset: 0; background: rgba(4,7,24,.7); backdrop-filter: blur(4px); z-index: 950; opacity: 0; visibility: hidden; transition: var(--t); }
+    .overlay.active { opacity: 1; visibility: visible; }
+    .panel { position: fixed; top: 0; right: -440px; width: min(400px, 92vw); height: 100%; z-index: 960; padding: 1.6rem; overflow-y: auto; background: linear-gradient(170deg, #1a2160, #0e1442); border-left: 1px solid var(--line); box-shadow: -20px 0 60px rgba(0,0,0,.5); transition: right .35s ease; }
+    .panel.active { right: 0; }
+    .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; padding-bottom: .9rem; border-bottom: 1px solid var(--line); }
+    .panel-title { font-size: 1.25rem; font-weight: 600; }
+    .close-panel, .close-modal { background: none; border: 0; font-size: 1.7rem; line-height: 1; color: var(--muted); cursor: pointer; }
+    .close-panel:hover, .close-modal:hover { color: #fff; }
+    .panel p { color: var(--muted); font-size: .9rem; margin-bottom: 1rem; }
+    .panel h3 { font-size: 1rem; margin: 1.2rem 0 .6rem; }
+    .candidat-card { padding: 1.1rem; margin-bottom: .9rem; border-radius: 18px; background: var(--glass); border: 1px solid var(--line); }
+    .candidat-header { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .7rem; }
+    .candidat-header h3 { margin: 0; font-size: .98rem; }
+    .candidat-detail { display: flex; gap: .6rem; align-items: center; font-size: .84rem; color: var(--muted); margin-bottom: .3rem; }
+    .candidat-detail i { width: 1rem; text-align: center; color: var(--blue-2); }
+    .candidat-card .btn { margin-top: .6rem; width: 100%; padding: .55rem; }
+    .faq { border-bottom: 1px solid var(--line); padding: .8rem 0; }
+    .faq summary { cursor: pointer; font-weight: 500; font-size: .92rem; list-style: none; display: flex; justify-content: space-between; gap: .8rem; }
+    .faq summary::after { content: "+"; color: var(--blue-2); font-size: 1.2rem; line-height: 1; }
+    .faq[open] summary::after { content: "−"; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq p { margin: .6rem 0 0; font-size: .86rem; }
+    .acc-opt { margin-bottom: 1.4rem; }
+    .acc-opt h3 { margin: 0 0 .6rem; }
+    .opt-row { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .font-btn, .contrast-btn { padding: .45rem .9rem; border: 1px solid var(--line); border-radius: 10px; background: var(--glass); color: var(--muted); font-size: .85rem; cursor: pointer; transition: var(--t); }
+    .font-btn.active, .contrast-btn.active { background: var(--grad); color: #fff; border-color: transparent; }
+
+    /* Modale modification */
+    .modal-overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(4,7,24,.72); backdrop-filter: blur(5px); justify-content: center; align-items: center; padding: 1rem; }
+    .modal-overlay.open { display: flex; }
+    .modal { width: 100%; max-width: 640px; max-height: 92vh; overflow-y: auto; padding: 2rem; border-radius: 26px; background: linear-gradient(160deg, #1d2566, #10164a); border: 1px solid var(--line); box-shadow: 0 40px 90px rgba(0,0,0,.6); animation: rise .25s both; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; }
+    .modal-title { font-size: 1.4rem; font-weight: 600; }
+
+    @media (max-width: 900px) { .steps { grid-template-columns: 1fr; gap: 1.2rem; } .step { display: flex; text-align: left; gap: 1rem; align-items: center; } .step-circle { margin: 0; flex: none; } .step:not(:last-child)::after { display: none; } }
+    @media (max-width: 720px) {
+      .nav-link span { display: none; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .dock { top: auto; bottom: 14px; right: 14px; transform: none; flex-direction: row; }
+      .candidature-card form { width: 100%; }
+      .candidature-card select { flex: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
   </style>
 </head>
 <body>
   <header class="header">
-    <div class="logo">
-      <img src="{% static 'images/logo.png' %}" alt="CareerJob">
-      <span class="logo-text">CareerJob</span>
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <span class="logo-mark"><img src="{% static 'images/logo.png' %}" alt="CareerJob"></span>
+        <span>CareerJob</span>
+      </a>
+      <nav class="nav-menu" aria-label="Navigation principale">
+        <a href="#" class="nav-link"><i class="fas fa-home"></i><span>Accueil</span></a>
+        <a href="#gg" class="nav-link"><i class="fas fa-briefcase"></i><span>Candidatures</span></a>
+        <a href="{% url 'logout' %}" class="nav-link logout"><i class="fas fa-sign-out-alt"></i><span>Déconnexion</span></a>
+      </nav>
     </div>
-    <nav class="nav-menu">
-      <a href="#" class="nav-link"><i class="fas fa-home"></i> Accueil</a>
-         <a href="#gg" class="nav-link"><i class="fas fa-briefcase"></i> Candidatures</a>
-   
-      <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
-    </nav>
   </header>
 
-  <!-- Bouton d'urgence pour fermer les panneaux -->
-  <button id="emergency-close">Fermer tous les panneaux</button>
-
-  <!-- Boutons circulaires d'accessibilité -->
-  <div class="circular-buttons">
-    <button class="circular-button" id="contact-btn" title="Contact">✉️</button>
-    <button class="circular-button" id="help-btn" title="Aide">?</button>
-    <button class="circular-button" id="accessibility-btn" title="Accessibilité">@</button>
+  <!-- Boutons flottants -->
+  <div class="dock">
+    <button type="button" id="contact-btn" title="Candidats" aria-label="Candidats"><i class="fas fa-users"></i></button>
+    <button type="button" id="help-btn" title="Aide" aria-label="Aide"><i class="fas fa-question"></i></button>
+    <button type="button" id="accessibility-btn" title="Accessibilité" aria-label="Accessibilité"><i class="fas fa-universal-access"></i></button>
   </div>
 
-  <!-- Overlay -->
   <div class="overlay" id="overlay"></div>
 
-  <!-- Panel Contact - MODIFIÉ POUR AFFICHER LES INFOS DES CANDIDATS -->
+  <!-- Panneau candidats -->
   <div class="panel" id="contact-panel">
     <div class="panel-header">
       <h2 class="panel-title">Informations des Candidats</h2>
-      <button class="close-panel">&times;</button>
+      <button type="button" class="close-panel" aria-label="Fermer">&times;</button>
     </div>
-    <div class="panel-content">
-      <p>Liste des candidats qui ont postulé à vos offres d'emploi :</p>
-      
-      <div class="candidats-list">
-        {% for candidature in candidatures %}
-          <div class="candidat-card">
-            <div class="candidat-header">
-              <h3>{{ candidature.candidat.nom }} {{ candidature.candidat.prenom }}</h3>
-              <span class="candidat-status status-{{ candidature.statut_candidature|slugify }}">
-                {{ candidature.get_statut_candidature_display }}
-              </span>
-            </div>
-            <div class="candidat-info">
-              <div class="candidat-detail">
-                <i class="fas fa-envelope"></i>
-                <span>{{ candidature.candidat.user.email }}</span>
-              </div>
-              {% if candidature.candidat.numero_telephone %}
-                <div class="candidat-detail">
-                  <i class="fas fa-phone"></i>
-                  <span>{{ candidature.candidat.numero_telephone }}</span>
-                </div>
-              {% else %}
-                <div class="candidat-detail">
-                  <i class="fas fa-phone"></i>
-                  <span>Numéro non renseigné</span>
-                </div>
-              {% endif %}
-              <div class="candidat-detail">
-                <i class="fas fa-briefcase"></i>
-                <span>Candidature pour : {{ candidature.offre.titre }}</span>
-              </div>
-              <div class="candidat-detail">
-                <i class="fas fa-calendar-alt"></i>
-                <i class="fas fa-calendar-alt"></i>
-                <span>Date de candidature : {{ candidature.date_envoi|date:"d/m/Y" }}</span>
-              </div>
-            </div>
-            <div class="candidat-actions">
-              <button class="btn-action btn-contact" data-email="{{ candidature.candidat.user.email }}">
-                <i class="fas fa-envelope"></i> Contacter
-              </button>
-            </div>
-          </div>
-        {% empty %}
-          <p>Aucune candidature reçue pour le moment.</p>
-        {% endfor %}
+    <p>Liste des candidats qui ont postulé à vos offres d'emploi :</p>
+    {% for candidature in candidatures %}
+      <div class="candidat-card">
+        <div class="candidat-header">
+          <h3>{{ candidature.candidat.nom }} {{ candidature.candidat.prenom }}</h3>
+          <span class="pill status-{{ candidature.statut_candidature|slugify }}">{{ candidature.get_statut_candidature_display }}</span>
+        </div>
+        <div class="candidat-detail"><i class="fas fa-envelope"></i><span>{{ candidature.candidat.user.email }}</span></div>
+        <div class="candidat-detail"><i class="fas fa-phone"></i><span>{% if candidature.candidat.numero_telephone %}{{ candidature.candidat.numero_telephone }}{% else %}Numéro non renseigné{% endif %}</span></div>
+        <div class="candidat-detail"><i class="fas fa-briefcase"></i><span>{{ candidature.offre.titre }}</span></div>
+        <div class="candidat-detail"><i class="fas fa-calendar-alt"></i><span>{{ candidature.date_envoi|date:"d/m/Y" }}</span></div>
+        <button type="button" class="btn btn-primary btn-contact" data-email="{{ candidature.candidat.user.email }}"><i class="fas fa-envelope"></i> Contacter</button>
       </div>
-    </div>
+    {% empty %}
+      <p>Aucune candidature reçue pour le moment.</p>
+    {% endfor %}
   </div>
 
-  <!-- Panel Aide -->
+  <!-- Panneau aide -->
   <div class="panel" id="help-panel">
     <div class="panel-header">
       <h2 class="panel-title">Aide</h2>
-      <button class="close-panel">&times;</button>
+      <button type="button" class="close-panel" aria-label="Fermer">&times;</button>
     </div>
-    <div class="panel-content">
-      <p>Consultez notre FAQ ou contactez notre équipe de support pour obtenir de l'aide.</p>
-      
-      <h3>Foire Aux Questions</h3>
-      
-      <div class="faq-item">
-        <div class="faq-question">Comment puis-je publier une offre d'emploi ?</div>
-        <div class="faq-answer">
-          Pour publier une offre d'emploi, connectez-vous à votre compte recruteur, cliquez sur "Publier une offre" dans le tableau de bord, remplissez le formulaire avec les détails du poste et cliquez sur "Soumettre".
-        </div>
-      </div>
-      
-      <div class="faq-item">
-        <div class="faq-question">Comment puis-je consulter les candidatures reçues ?</div>
-        <div class="faq-answer">
-          Vous pouvez consulter toutes les candidatures reçues en accédant à la section "Candidatures" de votre tableau de bord. Vous pourrez y filtrer les candidats par poste, date ou statut.
-        </div>
-      </div>
-      
-      <div class="faq-item">
-        <div class="faq-question">Comment modifier le statut d'une candidature ?</div>
-        <div class="faq-answer">
-          Pour modifier le statut d'une candidature, accédez à la liste des candidats, trouvez le candidat concerné et cliquez sur le bouton "Modifier statut". Vous pourrez alors choisir entre "En attente", "Accepté" ou "Refusé".
-        </div>
-      </div>
-      
-      <div class="faq-item">
-        <div class="faq-question">Comment contacter un candidat ?</div>
-        <div class="faq-answer">
-          Vous pouvez contacter un candidat directement depuis la plateforme en cliquant sur son profil puis sur le bouton "Contacter". Vous pouvez également voir ses coordonnées dans les détails de sa candidature.
-        </div>
-      </div>
-      
-      <div class="faq-item">
-        <div class="faq-question">Comment créer une alerte pour un poste ?</div>
-        <div class="faq-answer">
-          Pour créer une alerte, accédez à la liste des postes, trouvez le poste concerné et cliquez sur "Créer une alerte". Vous pourrez définir les critères de l'alerte et la fréquence des notifications.
-        </div>
-      </div>
-      
-      <h3>Besoin d'aide supplémentaire ?</h3>
-      <p>Notre équipe de support est disponible du lundi au vendredi de 9h à 18h.</p>
-      <button class="btn-primary" id="contact-support-btn">Contacter le support</button>
-    </div>
+    <p>Consultez notre FAQ ou contactez notre équipe de support pour obtenir de l'aide.</p>
+    <h3>Foire Aux Questions</h3>
+    <details class="faq"><summary>Comment puis-je publier une offre d'emploi ?</summary><p>Cliquez sur « Publier une offre », remplissez le formulaire avec les détails du poste puis cliquez sur « Ajouter l'Offre ».</p></details>
+    <details class="faq"><summary>Comment consulter les candidatures reçues ?</summary><p>Rendez-vous dans la section « Gestion des candidatures » puis cliquez sur « Afficher tout » pour voir toutes les candidatures.</p></details>
+    <details class="faq"><summary>Comment modifier le statut d'une candidature ?</summary><p>Dans la liste des candidatures, choisissez « En attente », « Accepté » ou « Refusé » puis cliquez sur « Mettre à jour ». Le candidat est notifié.</p></details>
+    <details class="faq"><summary>Comment contacter un candidat ?</summary><p>Ouvrez le panneau des candidats (bouton à droite) et cliquez sur « Contacter » pour lui écrire par email. Son numéro de téléphone y figure aussi.</p></details>
+    <details class="faq"><summary>Comment modifier ou supprimer une offre ?</summary><p>Utilisez les boutons « Modifier » et « Supprimer » en bas de chaque offre.</p></details>
+    <h3>Besoin d'aide supplémentaire ?</h3>
+    <p>Notre équipe de support est disponible du lundi au vendredi de 9h à 18h.</p>
+    <button type="button" class="btn btn-primary" id="contact-support-btn">Contacter le support</button>
   </div>
 
-  <!-- Panel Accessibilité -->
+  <!-- Panneau accessibilité -->
   <div class="panel" id="accessibility-panel">
     <div class="panel-header">
       <h2 class="panel-title">Accessibilité</h2>
-      <button class="close-panel">&times;</button>
+      <button type="button" class="close-panel" aria-label="Fermer">&times;</button>
     </div>
-    <div class="panel-content">
-      <p>Personnalisez votre expérience en ajustant les paramètres d'accessibilité ci-dessous.</p>
-      
-      <div class="accessibility-option">
-        <h3 class="accessibility-title">Taille du texte</h3>
-        <div class="font-size-buttons">
-          <button class="font-btn" data-size="small">Petit</button>
-          <button class="font-btn active" data-size="medium">Moyen</button>
-          <button class="font-btn" data-size="large">Grand</button>
-          <button class="font-btn" data-size="x-large">Très grand</button>
-        </div>
+    <p>Personnalisez votre expérience en ajustant les paramètres ci-dessous.</p>
+    <div class="acc-opt">
+      <h3>Taille du texte</h3>
+      <div class="opt-row">
+        <button type="button" class="font-btn" data-size="14px">Petit</button>
+        <button type="button" class="font-btn active" data-size="16px">Moyen</button>
+        <button type="button" class="font-btn" data-size="18px">Grand</button>
+        <button type="button" class="font-btn" data-size="20px">Très grand</button>
       </div>
-      <div class="accessibility-option">
-        <h3 class="accessibility-title">Contraste</h3>
-        <div class="contrast-buttons">
-          <button class="contrast-btn active" data-contrast="normal">Normal</button>
-          <button class="contrast-btn" data-contrast="high">Élevé</button>
-          <button class="contrast-btn" data-contrast="dark">Mode sombre</button>
-        </div>
-      </div>
-      </div>
+    </div>
+    <div class="acc-opt">
+      <h3>Contraste</h3>
+      <div class="opt-row">
+        <button type="button" class="contrast-btn active" data-contrast="normal">Normal</button>
+        <button type="button" class="contrast-btn" data-contrast="high">Élevé</button>
       </div>
     </div>
   </div>
 
-  <div class="container">
+  <main class="container">
     {% if messages %}
       <div class="messages">
-        {% for message in messages %}
-          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-        {% endfor %}
+        {% for message in messages %}<div class="alert alert-{{ message.tags }}">{{ message }}</div>{% endfor %}
       </div>
     {% endif %}
 
-    <button type="button" class="btn-primary" onclick="toggleForm()">
-      <i class="fas fa-plus"></i> Publier une offre
-    </button>
+    <div class="page-head">
+      <div>
+        <h1>Espace Recruteur</h1>
+        <p>Publiez vos offres et suivez chaque candidature.</p>
+      </div>
+      <button type="button" class="btn btn-primary" onclick="toggleForm()"><i class="fas fa-plus"></i> Publier une offre</button>
+    </div>
 
-    <div id="form-container" class="form-container">
+    <div id="form-container" class="form-container glass">
+      <h2 class="form-title">Nouvelle offre</h2>
       <form method="POST" action="{% url 'create_offre' %}">
         {% csrf_token %}
-        <div class="form-group">
-          <label class="form-label" for="id_titre">Titre de l'offre</label>
-          {{ form.titre }}
+        <div class="grid-2">
+          <div class="form-group"><label class="form-label" for="id_titre">Titre de l'offre</label>{{ form.titre }}</div>
+          <div class="form-group"><label class="form-label" for="id_entreprise">Entreprise</label>{{ form.entreprise }}</div>
+          <div class="form-group"><label class="form-label" for="id_localisation">Localisation</label>{{ form.localisation }}</div>
+          <div class="form-group"><label class="form-label" for="id_type_contrat">Type de contrat</label>{{ form.type_contrat }}</div>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="id_entreprise">Entreprise</label>
-          {{ form.entreprise }}
+        <div class="grid-3">
+          <div class="form-group"><label class="form-label" for="id_categorie">Catégorie</label>{{ form.categorie }}</div>
+          <div class="form-group"><label class="form-label" for="id_salaire_min">Salaire minimum (DH)</label>{{ form.salaire_min }}</div>
+          <div class="form-group"><label class="form-label" for="id_salaire_max">Salaire maximum (DH)</label>{{ form.salaire_max }}</div>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="id_localisation">Localisation</label>
-          {{ form.localisation }}
+        <div class="form-group"><label class="form-label" for="id_description">Description</label>{{ form.description }}</div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="toggleForm()">Annuler</button>
+          <button type="submit" class="btn btn-primary">Ajouter l'offre</button>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="id_type_contrat">Type de Contrat</label>
-          {{ form.type_contrat }}
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="id_categorie">Catégorie</label>
-          {{ form.categorie }}
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="id_description">Description</label>
-          {{ form.description }}
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="id_salaire_min">Salaire Minimum (DH)</label>
-          {{ form.salaire_min }}
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="id_salaire_max">Salaire Maximum (DH)</label>
-          {{ form.salaire_max }}
-        </div>
-        <button type="submit" class="btn-primary">Ajouter l'Offre</button>
       </form>
     </div>
 
-    <h2 class="section-title2">Nos Offres d'emploi</h2>
+    <h2 class="section-title">Nos offres d'emploi</h2>
     <div class="job-cards">
       {% for offre in offres %}
-        <div class="job-card">
-          <h3>{{ offre.titre }}</h3>
-          <div class="job-meta">
-            <i class="fas fa-building"></i>
-            <span>{{ offre.entreprise }}</span>
+        <article class="job-card glass">
+          <div class="job-top">
+            <div class="avatar">{{ offre.entreprise|slice:":2"|upper }}</div>
+            <h3>{{ offre.titre }}</h3>
           </div>
-          <div class="job-meta">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>{{ offre.localisation }}</span>
+          <div class="job-info">
+            <div class="job-meta"><i class="fas fa-building"></i><span>{{ offre.entreprise }}</span></div>
+            <div class="job-meta"><i class="fas fa-map-marker-alt"></i><span>{{ offre.localisation }}</span></div>
           </div>
-          <div>
-            <span class="job-tag">{{ offre.type_contrat }}</span>
-            <span class="job-tag">{{ offre.categorie }}</span>
-          </div>
-          <div class="job-salary">
-            {{ offre.salaire_min }} - {{ offre.salaire_max }} €
-          </div>
-          <p>{{ offre.description|truncatewords:20 }}</p>
+          <div class="tags"><span class="pill">{{ offre.type_contrat }}</span><span class="pill">{{ offre.categorie }}</span></div>
+          <div class="job-salary">{{ offre.salaire_min }} - {{ offre.salaire_max }} DH</div>
+          <p class="job-desc">{{ offre.description|truncatewords:20 }}</p>
           <div class="btn-group">
-            <form method="POST" action="{% url 'delete_offre' offre.id %}" style="flex: 1;">
+            <form method="POST" action="{% url 'delete_offre' offre.id %}">
               {% csrf_token %}
-              <button type="submit" class="btn-action btn-delete">
-                <i class="fas fa-trash"></i> Supprimer
-              </button>
+              <button type="submit" class="btn btn-danger" onclick="return confirm('Supprimer cette offre ?')"><i class="fas fa-trash"></i> Supprimer</button>
             </form>
-            <a href="#" class="btn-action btn-edit" 
-               data-id="{{ offre.id }}"
-               data-titre="{{ offre.titre }}"
-               data-entreprise="{{ offre.entreprise }}"
-               data-localisation="{{ offre.localisation }}"
-               data-type-contrat="{{ offre.type_contrat }}"
-               data-categorie="{{ offre.categorie }}"
-               data-description="{{ offre.description }}"
-               data-salaire-min="{{ offre.salaire_min }}"
-               data-salaire-max="{{ offre.salaire_max }}">
+            <a href="#" class="btn btn-soft btn-edit"
+               data-id="{{ offre.id }}" data-titre="{{ offre.titre }}" data-entreprise="{{ offre.entreprise }}"
+               data-localisation="{{ offre.localisation }}" data-type-contrat="{{ offre.type_contrat }}"
+               data-categorie="{{ offre.categorie }}" data-description="{{ offre.description }}"
+               data-salaire-min="{{ offre.salaire_min }}" data-salaire-max="{{ offre.salaire_max }}">
               <i class="fas fa-edit"></i> Modifier
             </a>
           </div>
-        </div>
+        </article>
       {% empty %}
-        <p>Aucune offre publiée pour le moment.</p>
+        <p class="empty">Aucune offre publiée pour le moment.</p>
       {% endfor %}
     </div>
 
-    <div class="candidature-section"id="gg">
-      <h2 class="section-title2">Gestion des candidatures</h2>
+    <section id="gg">
+      <div class="cand-head">
+        <h2 class="section-title" style="margin-bottom:0">Gestion des candidatures</h2>
+        {% if candidatures %}<button type="button" id="show-all-btn" class="btn btn-ghost">Afficher tout</button>{% endif %}
+      </div>
       {% if candidatures %}
-        <div id="candidature-list" class="candidature-list">
+        <div id="candidature-list" class="glass">
           {% for cand in candidatures %}
             <div class="candidature-card">
-              <div class="job-meta">
-                <i class="fas fa-user"></i>
-                <span>{{ cand.candidat.user.username }}</span>
+              <div class="avatar">{{ cand.candidat.user.username|slice:":2"|upper }}</div>
+              <div class="cand-info">
+                <b>{{ cand.candidat.user.username }}</b>
+                <small><i class="fas fa-briefcase"></i> {{ cand.offre.titre }}</small>
               </div>
-              <div class="job-meta">
-                <i class="fas fa-briefcase"></i>
-                <span>{{ cand.offre.titre }}</span>
-              </div>
-              <div class="job-meta">
-                <i class="fas fa-info-circle"></i>
-                <span>{{ cand.get_statut_candidature_display }}</span>
-              </div>
+              <span class="pill status-{{ cand.statut_candidature|slugify }}">{{ cand.get_statut_candidature_display }}</span>
               <form method="POST" action="{% url 'changer_statut_et_notifier' cand.id %}">
                 {% csrf_token %}
-                <select name="statut" class="form-control">
+                <select name="statut" aria-label="Statut">
                   {% for code,label in cand.STATUT_CHOIX %}
-                    <option value="{{ code }}" {% if cand.statut_candidature == code %}selected{% endif %}>
-                      {{ label }}
-                    </option>
+                    <option value="{{ code }}" {% if cand.statut_candidature == code %}selected{% endif %}>{{ label }}</option>
                   {% endfor %}
                 </select>
-                <button type="submit" class="btn-action btn-primary">
-                  <i class="fas fa-check"></i> Mettre à jour
-                </button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Mettre à jour</button>
               </form>
             </div>
           {% endfor %}
         </div>
       {% else %}
-        <p>Aucune candidature pour l'instant.</p>
+        <p class="empty" style="margin-top:1rem">Aucune candidature pour l'instant.</p>
       {% endif %}
-    </div>
-  </div>
+    </section>
+  </main>
 
- <div class="show-more-container">
-      <button id="show-all-btn" class="show-all-btn">AFFICHER TOUT</button>
-    </div>
- 
-    <!-- Section "Comment ça marche" ajoutée avant le footer -->
-  <section class="process-section">
-    <div class="process-container">
+  <section class="container" style="padding-top:0">
+    <div class="process-section glass">
       <h2 class="section-title">Comment ça marche</h2>
-      <div class="title-underline"></div>
-      
-      <div class="process-container">
-        <div class="process-row">
-          <div class="process-step-text left">
-            <p>Publication<br>de l'offre</p>
-          </div>
-          <div class="empty-space"></div>
-          <div class="process-step-text right">
-            <p>Postulation<br>du candidature</p>
-          </div>
-          <div class="empty-space"></div>
-          <div class="process-step-text left">
-            <p>Mettre a jour le statut du candidature</p>
-          </div>
-          <div class="empty-space"></div>
-          <div class="process-step-text right">
-            <p>Envoyer une notification au candidat</p>
-          </div>
-          <div class="empty-space"></div>
-          <div class="process-step-text left">
-            <p>Contacter le candidat par son numéro de téléphone</p>
-          </div>
-        </div>
-        
-        <div class="process-steps">
-          <div class="step-circle">
-            <span class="step-number">1</span>
-          </div>
-          <div class="step-line"></div>
-          <div class="step-circle">
-            <span class="step-number">2</span>
-          </div>
-          <div class="step-line"></div>
-          <div class="step-circle">
-            <span class="step-number">3</span>
-          </div>
-          <div class="step-line"></div>
-          <div class="step-circle">
-            <span class="step-number">4</span>
-          </div>
-          <div class="step-line"></div>
-          <div class="step-circle">
-            <span class="step-number">5</span>
-          </div>
-        </div>
+      <div class="steps">
+        <div class="step"><div class="step-circle">1</div><p>Publication de l'offre</p></div>
+        <div class="step"><div class="step-circle">2</div><p>Postulation du candidat</p></div>
+        <div class="step"><div class="step-circle">3</div><p>Mise à jour du statut de la candidature</p></div>
+        <div class="step"><div class="step-circle">4</div><p>Envoi d'une notification au candidat</p></div>
+        <div class="step"><div class="step-circle">5</div><p>Contact du candidat par téléphone ou email</p></div>
       </div>
     </div>
   </section>
 
-<!-- Modal pour modifier une offre -->
-<div class="modal-overlay" id="edit-modal-overlay">
-  <div class="modal" id="edit-modal">
-    <div class="modal-header">
-      <h3 class="modal-title">Modifier l'offre</h3>
-      <button class="close-modal" id="close-edit-modal">&times;</button>
+  <!-- Modale : modifier une offre -->
+  <div class="modal-overlay" id="edit-modal-overlay">
+    <div class="modal" id="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-title">
+      <div class="modal-header">
+        <h3 class="modal-title" id="edit-title">Modifier l'offre</h3>
+        <button type="button" class="close-modal" id="close-edit-modal" aria-label="Fermer">&times;</button>
+      </div>
+      <form id="edit-form" method="POST">
+        {% csrf_token %}
+        <input type="hidden" id="edit-offre-id" name="offre_id">
+        <div class="grid-2">
+          <div class="form-group"><label class="form-label" for="edit_titre">Titre de l'offre</label><input type="text" id="edit_titre" name="titre" class="form-control" required></div>
+          <div class="form-group"><label class="form-label" for="edit_entreprise">Entreprise</label><input type="text" id="edit_entreprise" name="entreprise" class="form-control" required></div>
+          <div class="form-group"><label class="form-label" for="edit_localisation">Localisation</label><input type="text" id="edit_localisation" name="localisation" class="form-control" required></div>
+          <div class="form-group"><label class="form-label" for="edit_type_contrat">Type de contrat</label>
+            <select id="edit_type_contrat" name="type_contrat" class="form-control" required>
+              <option value="CDI">CDI</option><option value="CDD">CDD</option><option value="Stage">Stage</option><option value="Alternance">Alternance</option><option value="Freelance">Freelance</option>
+            </select></div>
+          <div class="form-group"><label class="form-label" for="edit_categorie">Catégorie</label>
+            <select id="edit_categorie" name="categorie" class="form-control" required>
+              <option value="Informatique">Informatique</option><option value="Marketing">Marketing</option><option value="Finance">Finance</option><option value="Ressources Humaines">Ressources Humaines</option><option value="Vente">Vente</option><option value="Autre">Autre</option>
+            </select></div>
+          <div></div>
+          <div class="form-group"><label class="form-label" for="edit_salaire_min">Salaire minimum (DH)</label><input type="number" id="edit_salaire_min" name="salaire_min" class="form-control" required></div>
+          <div class="form-group"><label class="form-label" for="edit_salaire_max">Salaire maximum (DH)</label><input type="number" id="edit_salaire_max" name="salaire_max" class="form-control" required></div>
+        </div>
+        <div class="form-group"><label class="form-label" for="edit_description">Description</label><textarea id="edit_description" name="description" class="form-control" required></textarea></div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" id="cancel-edit">Annuler</button>
+          <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+        </div>
+      </form>
     </div>
-    <form id="edit-form" method="POST">
-      {% csrf_token %}
-      <input type="hidden" id="edit-offre-id" name="offre_id">
-      <div class="form-group">
-        <label class="form-label" for="edit_titre">Titre de l'offre</label>
-        <input type="text" id="edit_titre" name="titre" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="edit_entreprise">Entreprise</label>
-        <input type="text" id="edit_entreprise" name="entreprise" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="edit_localisation">Localisation</label>
-        <input type="text" id="edit_localisation" name="localisation" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="edit_type_contrat">Type de Contrat</label>
-        <select id="edit_type_contrat" name="type_contrat" class="form-control" required>
-          <option value="CDI">CDI</option>
-          <option value="CDD">CDD</option>
-          <option value="Stage">Stage</option>
-          <option value="Alternance">Alternance</option>
-          <option value="Freelance">Freelance</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="edit_categorie">Catégorie</label>
-        <select id="edit_categorie" name="categorie" class="form-control" required>
-          <option value="Informatique">Informatique</option>
-          <option value="Marketing">Marketing</option>
-          <option value="Finance">Finance</option>
-          <option value="Ressources Humaines">Ressources Humaines</option>
-          <option value="Vente">Vente</option>
-          <option value="Autre">Autre</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="edit_description">Description</label>
-        <textarea id="edit_description" name="description" class="form-control" required></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="edit_salaire_min">Salaire Minimum (€)</label>
-        <input type="number" id="edit_salaire_min" name="salaire_min" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="edit_salaire_max">Salaire Maximum (€)</label>
-        <input type="number" id="edit_salaire_max" name="salaire_max" class="form-control" required>
-      </div>
-      <div class="form-actions">
-        <button type="button" class="btn-cancel" id="cancel-edit">Annuler</button>
-        <button type="submit" class="btn-submit">Enregistrer les modifications</button>
-      </div>
-    </form>
   </div>
-</div>
 
 <script>
-// Important! Cette section de code s'exécute immédiatement au chargement de la page
-// pour s'assurer que les panneaux latéraux sont fermés par défaut
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('Page chargée, initialisation...');
-  
-  // Fermer tous les panneaux au chargement initial
-  const contactPanel = document.getElementById('contact-panel');
-  const helpPanel = document.getElementById('help-panel');
-  const accessibilityPanel = document.getElementById('accessibility-panel');
-  const overlay = document.getElementById('overlay');
-  
-  if (contactPanel) {
-    contactPanel.classList.remove('active');
-    console.log('Panel contact désactivé');
+  const $ = id => document.getElementById(id);
+  const panels = ['contact-panel', 'help-panel', 'accessibility-panel'];
+  const dockBtns = { 'contact-panel': 'contact-btn', 'help-panel': 'help-btn', 'accessibility-panel': 'accessibility-btn' };
+
+  function closeAllPanels() {
+    panels.forEach(p => { $(p).classList.remove('active'); $(dockBtns[p]).classList.remove('active'); });
+    $('overlay').classList.remove('active');
   }
-  if (helpPanel) {
-    helpPanel.classList.remove('active');
-    console.log('Panel aide désactivé');
+  function openPanel(id) {
+    closeAllPanels();
+    $(id).classList.add('active');
+    $(dockBtns[id]).classList.add('active');
+    $('overlay').classList.add('active');
   }
-  if (accessibilityPanel) {
-    accessibilityPanel.classList.remove('active');
-    console.log('Panel accessibilité désactivé');
-  }
-  if (overlay) {
-    overlay.classList.remove('active');
-    console.log('Overlay désactivé');
-  }
-  
-  // S'assurer que les candidatures sont masquées au début
-  const candidatureList = document.getElementById('candidature-list');
-  if (candidatureList) {
-    candidatureList.style.display = 'none';
-    console.log('Liste des candidatures masquée');
-  }
-  
-  // Vérifier et corriger le problème des boutons circulaires
-  const circularButtons = document.querySelectorAll('.circular-button');
-  circularButtons.forEach(button => {
-    button.classList.remove('active');
-  });
-  console.log('Boutons circulaires réinitialisés');
-  
-  // Gérer le bouton d'urgence
-  const emergencyBtn = document.getElementById('emergency-close');
-  if (emergencyBtn) {
-    // Par défaut, cacher le bouton
-    emergencyBtn.style.display = 'none';
-    
-    // Afficher le bouton après 5 secondes si les panneaux sont toujours visibles
-    setTimeout(function() {
-      if ((contactPanel && contactPanel.classList.contains('active')) ||
-          (helpPanel && helpPanel.classList.contains('active')) ||
-          (accessibilityPanel && accessibilityPanel.classList.contains('active'))) {
-        emergencyBtn.style.display = 'block';
-        console.log('Bouton d\'urgence affiché');
-      }
-    }, 5000);
-    
-    // Ajouter l'événement de clic
-    emergencyBtn.addEventListener('click', function() {
-      closeAllPanels();
-      this.style.display = 'none';
-      console.log('Bouton d\'urgence cliqué, panneaux fermés');
+  function toggleForm() { $('form-container').classList.toggle('show'); }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Panneaux
+    panels.forEach(p => $(dockBtns[p]).addEventListener('click', () => openPanel(p)));
+    document.querySelectorAll('.close-panel').forEach(b => b.addEventListener('click', closeAllPanels));
+    $('overlay').addEventListener('click', closeAllPanels);
+    $('contact-support-btn').addEventListener('click', () => openPanel('contact-panel'));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAllPanels(); closeEditModal(); } });
+
+    // Liste des candidatures
+    const showAll = $('show-all-btn');
+    if (showAll) showAll.addEventListener('click', function () {
+      const list = $('candidature-list');
+      const open = list.style.display === 'block';
+      list.style.display = open ? 'none' : 'block';
+      this.textContent = open ? 'Afficher tout' : 'Masquer tout';
     });
-  }
-});
 
-// Fonction globale pour fermer tous les panneaux
-function closeAllPanels() {
-  console.log('Fermeture de tous les panneaux...');
-  const contactPanel = document.getElementById('contact-panel');
-  const helpPanel = document.getElementById('help-panel');
-  const accessibilityPanel = document.getElementById('accessibility-panel');
-  const overlay = document.getElementById('overlay');
-  const contactBtn = document.getElementById('contact-btn');
-  const helpBtn = document.getElementById('help-btn');
-  const accessibilityBtn = document.getElementById('accessibility-btn');
-  
-  if (contactPanel) contactPanel.classList.remove('active');
-  if (helpPanel) helpPanel.classList.remove('active');
-  if (accessibilityPanel) accessibilityPanel.classList.remove('active');
-  if (overlay) overlay.classList.remove('active');
-  
-  if (contactBtn) contactBtn.classList.remove('active');
-  if (helpBtn) helpBtn.classList.remove('active');
-  if (accessibilityBtn) accessibilityBtn.classList.remove('active');
-  
-  console.log('Tous les panneaux sont maintenant fermés');
-}
+    // Contacter un candidat
+    document.querySelectorAll('.btn-contact').forEach(btn => btn.addEventListener('click', function () {
+      window.location.href = `mailto:${this.dataset.email}?subject=Concernant votre candidature`;
+    }));
 
-// Toggle form visibility
-function toggleForm() {
-  const formContainer = document.getElementById('form-container');
-  formContainer.classList.toggle('show');
-  console.log('Formulaire basculé');
-}
-
-// Le reste du code JavaScript...
-window.addEventListener('load', function() {
-  console.log('Fenêtre chargée, nettoyage supplémentaire...');
-  closeAllPanels();
-});
-
-// Show/hide candidature list
-document.addEventListener('DOMContentLoaded', function() {
-  const showAllBtn = document.getElementById('show-all-btn');
-  if (showAllBtn) {
-    showAllBtn.addEventListener('click', function() {
-      const candidatureList = document.getElementById('candidature-list');
-      if (candidatureList) {
-        const isVisible = candidatureList.style.display === 'block';
-        if (isVisible) {
-          candidatureList.style.display = 'none';
-          this.textContent = 'AFFICHER TOUT';
-        } else {
-          candidatureList.style.display = 'block';
-          this.textContent = 'MASQUER TOUT';
-        }
-        console.log('Liste des candidatures basculée');
-      }
-    });
-  }
-
-  // Edit job offer functionality
-  const editButtons = document.querySelectorAll('.btn-edit');
-  const editModalOverlay = document.getElementById('edit-modal-overlay');
-  const closeEditModalBtn = document.getElementById('close-edit-modal');
-  const cancelEditBtn = document.getElementById('cancel-edit');
-  const editForm = document.getElementById('edit-form');
-  
-  // Function to close the edit modal
-  function closeEditModal() {
-    if (editModalOverlay) {
-      editModalOverlay.style.display = 'none';
-      console.log('Modal de modification fermée');
-    }
-  }
-  
-  // Add event listeners to all edit buttons
-  editButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
+    // Modale de modification
+    document.querySelectorAll('.btn-edit').forEach(btn => btn.addEventListener('click', function (e) {
       e.preventDefault();
-      
-      // Get the job offer data from data attributes
-      const offreId = this.getAttribute('data-id');
-      const titre = this.getAttribute('data-titre');
-      const entreprise = this.getAttribute('data-entreprise');
-      const localisation = this.getAttribute('data-localisation');
-      const typeContrat = this.getAttribute('data-type-contrat');
-      const categorie = this.getAttribute('data-categorie');
-      const description = this.getAttribute('data-description');
-      const salaireMin = this.getAttribute('data-salaire-min');
-      const salaireMax = this.getAttribute('data-salaire-max');
-      
-      // Fill the form with the job offer data
-      document.getElementById('edit-offre-id').value = offreId;
-      document.getElementById('edit_titre').value = titre;
-      document.getElementById('edit_entreprise').value = entreprise;
-      document.getElementById('edit_localisation').value = localisation;
-      document.getElementById('edit_type_contrat').value = typeContrat;
-      document.getElementById('edit_categorie').value = categorie;
-      document.getElementById('edit_description').value = description;
-      document.getElementById('edit_salaire_min').value = salaireMin;
-      document.getElementById('edit_salaire_max').value = salaireMax;
-      
-      // Set the form action - CETTE LIGNE EST MODIFIÉE
-      editForm.action = "{% url 'modifier_offre' 0 %}".replace('0', offreId);
-      console.log('Form action set to:', editForm.action);
-      
-      // Show the modal
-      editModalOverlay.style.display = 'flex';
-      console.log('Modal de modification ouverte');
-    });
-  });
-  
-  // Close modal when clicking the close button
-  if (closeEditModalBtn) {
-    closeEditModalBtn.addEventListener('click', closeEditModal);
-  }
-  
-  // Close modal when clicking the cancel button
-  if (cancelEditBtn) {
-    cancelEditBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      closeEditModal();
-    });
-  }
-  
-  // Close modal when clicking outside the modal
-  if (editModalOverlay) {
-    editModalOverlay.addEventListener('click', function(e) {
-      if (e.target === editModalOverlay) {
-        closeEditModal();
-      }
-    });
-  }
+      const d = this.dataset;
+      $('edit-offre-id').value = d.id;
+      $('edit_titre').value = d.titre;
+      $('edit_entreprise').value = d.entreprise;
+      $('edit_localisation').value = d.localisation;
+      $('edit_type_contrat').value = d.typeContrat;
+      $('edit_categorie').value = d.categorie;
+      $('edit_description').value = d.description;
+      $('edit_salaire_min').value = d.salaireMin;
+      $('edit_salaire_max').value = d.salaireMax;
+      $('edit-form').action = "{% url 'modifier_offre' 0 %}".replace('0', d.id);
+      $('edit-modal-overlay').classList.add('open');
+    }));
+    $('close-edit-modal').addEventListener('click', closeEditModal);
+    $('cancel-edit').addEventListener('click', closeEditModal);
+    $('edit-modal-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeEditModal(); });
 
-  // Boutons circulaires d'accessibilité
-  const contactBtn = document.getElementById('contact-btn');
-  const helpBtn = document.getElementById('help-btn');
-  const accessibilityBtn = document.getElementById('accessibility-btn');
-  
-  const contactPanel = document.getElementById('contact-panel');
-  const helpPanel = document.getElementById('help-panel');
-  const accessibilityPanel = document.getElementById('accessibility-panel');
-  
-  const overlay = document.getElementById('overlay');
-  const closeButtons = document.querySelectorAll('.close-panel');
-  
-  // Clic sur le bouton Contact
-  if (contactBtn) {
-    contactBtn.addEventListener('click', function() {
-      closeAllPanels();
-      if (contactPanel) contactPanel.classList.add('active');
-      if (overlay) overlay.classList.add('active');
-      contactBtn.classList.add('active');
-      console.log('Panel contact ouvert');
-    });
-  }
-  
-  // Clic sur le bouton Aide
-  if (helpBtn) {
-    helpBtn.addEventListener('click', function() {
-      closeAllPanels();
-      if (helpPanel) helpPanel.classList.add('active');
-      if (overlay) overlay.classList.add('active');
-      helpBtn.classList.add('active');
-      console.log('Panel aide ouvert');
-    });
-  }
-  
-  // Clic sur le bouton Accessibilité
-  if (accessibilityBtn) {
-    accessibilityBtn.addEventListener('click', function() {
-      closeAllPanels();
-      if (accessibilityPanel) accessibilityPanel.classList.add('active');
-      if (overlay) overlay.classList.add('active');
-      accessibilityBtn.classList.add('active');
-      console.log('Panel accessibilité ouvert');
-    });
-  }
-  
-  // Boutons de fermeture des panneaux
-  closeButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      console.log('Bouton de fermeture cliqué');
-      closeAllPanels();
-    });
-  });
-  
-  // Fermeture en cliquant sur l'overlay
-  if (overlay) {
-    overlay.addEventListener('click', function() {
-      console.log('Overlay cliqué');
-      closeAllPanels();
-    });
-  }
-  
-  // Bascule des questions FAQ
-  const faqQuestions = document.querySelectorAll('.faq-question');
-  
-  faqQuestions.forEach(question => {
-    question.addEventListener('click', function() {
-      this.classList.toggle('active');
-      const answer = this.nextElementSibling;
-      if (answer.style.display === 'block') {
-        answer.style.display = 'none';
-      } else {
-        answer.style.display = 'block';
-      }
-      console.log('Question FAQ basculée');
-    });
+    // Accessibilité
+    document.querySelectorAll('.font-btn').forEach(b => b.addEventListener('click', function () {
+      document.querySelectorAll('.font-btn').forEach(x => x.classList.remove('active'));
+      this.classList.add('active');
+      document.documentElement.style.fontSize = this.dataset.size;
+    }));
+    document.querySelectorAll('.contrast-btn').forEach(b => b.addEventListener('click', function () {
+      document.querySelectorAll('.contrast-btn').forEach(x => x.classList.remove('active'));
+      this.classList.add('active');
+      document.body.classList.toggle('hc', this.dataset.contrast === 'high');
+    }));
   });
 
-  // Gestion des boutons "Contacter" pour les candidats
-  const contactBtns = document.querySelectorAll('.btn-contact');
-  
-  contactBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const email = this.getAttribute('data-email');
-      window.location.href = `mailto:${email}?subject=Concernant votre candidature`;
-      console.log('Email de contact ouvert pour:', email);
-    });
-  });
-  
-  // Bouton de contact du support
-  const contactSupportBtn = document.getElementById('contact-support-btn');
-  
-  if (contactSupportBtn) {
-    contactSupportBtn.addEventListener('click', function() {
-      closeAllPanels();
-      if (contactPanel) contactPanel.classList.add('active');
-      if (overlay) overlay.classList.add('active');
-      if (contactBtn) contactBtn.classList.add('active');
-      console.log('Panel de support contact ouvert');
-    });
-  }
-  
-  // Options d'accessibilité
-  const fontButtons = document.querySelectorAll('.font-btn');
-  const contrastButtons = document.querySelectorAll('.contrast-btn');
-  const animationsToggle = document.getElementById('animations-toggle');
-  const resetAccessibilityBtn = document.getElementById('reset-accessibility');
-  
-  // Taille de police
-  fontButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      // Enlever la classe active de tous les boutons
-      fontButtons.forEach(btn => btn.classList.remove('active'));
-      
-      // Ajouter la classe// Ajouter la classe active au bouton cliqué
-      this.classList.add('active');
-      
-      // Appliquer la taille de police
-      const fontSize = this.getAttribute('data-size');
-      
-      switch(fontSize) {
-        case 'small':
-          document.body.style.fontSize = '14px';
-          break;
-        case 'medium':
-          document.body.style.fontSize = '16px';
-          break;
-        case 'large':
-          document.body.style.fontSize = '18px';
-          break;
-        case 'x-large':
-          document.body.style.fontSize = '20px';
-          break;
-      }
-      console.log('Taille de police changée:', fontSize);
-    });
-  });
-  
-  // Contraste
-  contrastButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      // Enlever la classe active de tous les boutons
-      contrastButtons.forEach(btn => btn.classList.remove('active'));
-      
-      // Ajouter la classe active au bouton cliqué
-      this.classList.add('active');
-      
-      // Appliquer le contraste
-      const contrast = this.getAttribute('data-contrast');
-      
-      switch(contrast) {
-        case 'normal':
-          document.body.style.backgroundColor = '#f8f9fa';
-          document.body.style.color = '#333333';
-          break;
-        case 'high':
-          document.body.style.backgroundColor = '#ffffff';
-          document.body.style.color = '#000000';
-          break;
-        case 'dark':
-          document.body.style.backgroundColor = '#222';
-          document.body.style.color = '#fff';
-          break;
-      }
-      console.log('Contraste changé:', contrast);
-    });
-  });
-  
-  // Bascule des animations
-  if (animationsToggle) {
-    animationsToggle.addEventListener('change', function() {
-      if (this.value === 'off') {
-        document.documentElement.style.setProperty('--transition', '0s');
-        console.log('Animations désactivées');
-      } else {
-        document.documentElement.style.setProperty('--transition', 'all 0.3s ease');
-        console.log('Animations activées');
-      }
-    });
-  }
-  
-  // Réinitialisation des paramètres d'accessibilité
-  if (resetAccessibilityBtn) {
-    resetAccessibilityBtn.addEventListener('click', function() {
-      // Réinitialiser la taille de police
-      document.body.style.fontSize = '16px';
-      fontButtons.forEach(btn => btn.classList.remove('active'));
-      const mediumFontBtn = document.querySelector('.font-btn[data-size="medium"]');
-      if (mediumFontBtn) mediumFontBtn.classList.add('active');
-      
-      // Réinitialiser le contraste
-      document.body.style.backgroundColor = '#f8f9fa';
-      document.body.style.color = '#333333';
-      contrastButtons.forEach(btn => btn.classList.remove('active'));
-      const normalContrastBtn = document.querySelector('.contrast-btn[data-contrast="normal"]');
-      if (normalContrastBtn) normalContrastBtn.classList.add('active');
-      
-      // Réinitialiser les animations
-      document.documentElement.style.setProperty('--transition', 'all 0.3s ease');
-      if (animationsToggle) animationsToggle.value = 'on';
-      
-      // Réinitialiser les indices pour lecteur d'écran
-      const screenReaderHints = document.getElementById('screen-reader-hints');
-      if (screenReaderHints) screenReaderHints.value = 'off';
-      
-      alert('Les paramètres d\'accessibilité ont été réinitialisés.');
-      console.log('Paramètres d\'accessibilité réinitialisés');
-    });
-  }
-});
+  function closeEditModal() { $('edit-modal-overlay').classList.remove('open'); }
 </script>
 </body>
 </html>

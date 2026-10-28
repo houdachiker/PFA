@@ -1,1310 +1,409 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <style>
-    * { 
-      box-sizing: border-box; 
-      margin: 0; 
-      padding: 0; 
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f0f4f8;
-      display: flex;
-      color: #1a202c;
-    }
-
-    /* Sidebar redesign with glass effect */
-    .sidebar {
-      width: 260px;
-      background: linear-gradient(135deg, #667eea 0%,rgb(33, 125, 183) 100%);
-      height: 100vh;
-      position: fixed;
-      padding: 32px 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      backdrop-filter: blur(5px);
-      z-index: 100;
-    }
-
-    .sidebar h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 24px;
-      letter-spacing: 0.5px;
-    }
-    
-    .sidebar h2 i {
-      margin-right: 12px;
-      font-size: 22px;
-    }
-
-    .sidebar a {
-      display: flex;
-      align-items: center;
-      color: rgba(255, 255, 255, 0.85);
-      padding: 14px 20px;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-
-    .sidebar a:hover, .sidebar a.active {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      transform: translateX(5px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .sidebar a i {
-      margin-right: 12px;
-      font-size: 18px;
-      width: 24px;
-      text-align: center;
-    }
-
-    /* Main content area */
-    .main {
-      margin-left: 260px;
-      width: calc(100% - 260px);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* Top navigation bar */
-    .navbar {
-      background: white;
-      padding: 20px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-      border-bottom: 1px solid #edf2f7;
-      position: sticky;
-      top: 0;
-      z-index: 99;
-    }
-
-    .navbar h1 {
-      color: #4a5568;
-      font-size: 22px;
-      font-weight: 600;
-    }
-
-    .profile-info {
-      display: flex;
-      align-items: center;
-      background: #f7fafc;
-      padding: 8px 16px;
-      border-radius: 40px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
-    }
-
-    .profile-info:hover {
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      transform: translateY(-2px);
-    }
-
-    .avatar {
-      width: 42px;
-      height: 42px;
-      background: linear-gradient(135deg, #667eea 0%,rgb(32, 140, 216) 100%);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 12px;
-      font-weight: bold;
-      font-size: 18px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-
-    /* Main content */
-    .content {
-      padding: 30px;
-      flex: 1;
-    }
-
-    .content-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-
-    .content-header h2 {
-      color: #2d3748;
-      font-size: 26px;
-      font-weight: 600;
-    }
-
-    /* Button styles */
-    .btn-add-user {
-      background: linear-gradient(135deg, #667eea 0%,rgb(23, 79, 199) 100%);
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .btn-add-user:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    }
-
-    .btn-add-user i {
-      margin-right: 10px;
-      font-size: 16px;
-    }
-
-    /* Dashboard cards */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin-bottom: 40px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 28px 24px;
-      text-align: center;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-      transition: all 0.3s ease;
-      border: 1px solid #edf2f7;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(135deg, #667eea 0%,rgb(39, 104, 201) 100%);
-    }
-
-    .card-icon {
-      width: 64px;
-      height: 64px;
-      background: #f0f5ff;
-      border-radius: 16px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto 18px;
-      transition: all 0.3s ease;
-    }
-
-    .card:hover .card-icon {
-      background: linear-gradient(135deg, #667eea 0%,rgb(19, 126, 184) 100%);
-    }
-
-    .card:hover .card-icon i {
-      color: white;
-    }
-
-    .card-icon i {
-      color: #667eea;
-      font-size: 24px;
-      transition: all 0.3s ease;
-    }
-
-    .card h2 {
-      color: #2d3748;
-      font-size: 38px;
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
-    .card p {
-      color: #718096;
-      font-weight: 500;
-      font-size: 16px;
-    }
-
-    /* Charts section */
-    .charts {
-      margin-top: 40px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 30px;
-    }
-
-    .chart-box {
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-      border: 1px solid #edf2f7;
-      transition: all 0.3s ease;
-    }
-
-    .chart-box:hover {
-      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-    }
-
-    .chart-box h2 {
-      color: #2d3748;
-      margin-bottom: 24px;
-      font-weight: 600;
-      font-size: 20px;
-      position: relative;
-      padding-left: 15px;
-    }
-
-    .chart-box h2::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 5px;
-      height: 20px;
-      background: linear-gradient(135deg, #667eea 0%,rgb(22, 139, 211) 100%);
-      border-radius: 4px;
-    }
-
-    .chart-box canvas {
-      width: 100% !important;
-      max-height: 400px;
-    }
-
-    /* Table styles */
-    .users-table, .recruiters-table {
-      width: 100%;
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-      border: 1px solid #edf2f7;
-      border-collapse: separate;
-      border-spacing: 0;
-      margin-bottom: 40px;
-    }
-
-    .users-table th, .users-table td,
-    .recruiters-table th, .recruiters-table td {
-      padding: 18px 20px;
-      text-align: left;
-      border-bottom: 1px solid #edf2f7;
-    }
-
-    .users-table th, .recruiters-table th {
-      background-color: #f7fafc;
-      color: #4a5568;
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 12px;
-      letter-spacing: 1px;
-    }
-
-    .users-table tbody tr, .recruiters-table tbody tr {
-      transition: all 0.2s ease;
-    }
-
-    .users-table tbody tr:hover, .recruiters-table tbody tr:hover {
-      background-color: #f7fafc;
-      transform: scale(1.01);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-      z-index: 1;
-      position: relative;
-    }
-
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, #667eea 0%,rgb(7, 161, 232) 100%);
-      color: white;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 12px;
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    .table-actions {
-      display: flex;
-      gap: 12px;
-    }
-
-    .btn-edit, .btn-delete, .btn-save {
-      border: none;
-      padding: 10px 16px;
-      border-radius: 12px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      font-weight: 500;
-      font-size: 14px;
-      transition: all 0.3s ease;
-    }
-
-    .btn-edit {
-      background-color: #edf2ff;
-      color: #5a67d8;
-    }
-
-    .btn-edit:hover {
-      background-color: #5a67d8;
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(90,103,216,0.3);
-    }
-
-    .btn-delete {
-      background-color: #fff5f5;
-      color: #e53e3e;
-    }
-
-    .btn-delete:hover {
-      background-color: #e53e3e;
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(229,62,62,0.3);
-    }
-
-    .btn-save {
-      background: linear-gradient(135deg, #667eea 0%,rgb(36, 132, 228) 100%);
-      color: white;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .btn-save:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    }
-
-    .btn-edit i, .btn-delete i {
-      margin-right: 8px;
-    }
-
-    .status-badge {
-      padding: 6px 12px;
-      border-radius: 30px;
-      font-size: 12px;
-      font-weight: 500;
-      display: inline-block;
-    }
-
-    .status-admin {
-      background-color: #ebf4ff;
-      color: #4299e1;
-    }
-
-    .status-user {
-      background-color: #e6fffa;
-      color: #38b2ac;
-    }
-
-    .status-recruiter {
-      background-color: #fefcbf;
-      color: #d69e2e;
-    }
-
-    /* Modal styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      backdrop-filter: blur(5px);
-    }
-
-    .add-btn {
-      background: linear-gradient(135deg, #667eea 0%,rgb(18, 142, 196) 100%);
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-size: 14px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-    
-    .add-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    }
-    
-    #addRecruiterModal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(5px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-    
-    .modal-content {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-      width: 480px;
-      max-width: 90%;
-      position: absolute;
-      font-family: 'Inter', sans-serif;
-      top: 50%;
-      left: 50%;   
-      transform: translate(-50%, -50%);
-      animation: modalFadeIn 0.3s ease forwards;
-    }
-    
-    @keyframes modalFadeIn {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -60%);
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-      }
-    }
-    
-    .modal-content h3 {
-      margin-top: 0;
-      margin-bottom: 24px;
-      font-size: 22px;
-      color: #2d3748;
-      position: relative;
-      padding-bottom: 12px;
-    }
-    
-    .modal-content h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(135deg, #667eea 0%,rgb(26, 143, 197) 100%);
-      border-radius: 3px;
-    }
-    
-    .modal-content label {
-      display: block;
-      margin-top: 16px;
-      margin-bottom: 6px;
-      font-weight: 500;
-      color: #4a5568;
-      font-size: 14px;
-    }
-    
-    .modal-content input {
-      width: 100%;
-      padding: 12px 15px;
-      margin-bottom: 18px;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      font-size: 15px;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-    }
-    
-    .modal-content input:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
-      outline: none;
-    }
-    
-    .modal-content button {
-      background: linear-gradient(135deg, #667eea 0%,rgb(22, 171, 216) 100%);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 100%;
-      margin-top: 10px;
-    }
-    
-    .modal-content button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    }
-    
-    #closeAddRecruiterModal {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 24px;
-      color: #718096;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    #closeAddRecruiterModal:hover {
-      color: #4a5568;
-      transform: rotate(90deg);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid #edf2f7;
-    }
-
-    .modal-header h2 {
-      color: #2d3748;
-      font-size: 22px;
-    }
-
-    .close-modal {
-      font-size: 24px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      color: #718096;
-    }
-
-    .close-modal:hover {
-      color: #4a5568;
-      transform: rotate(90deg);
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-      color: #4a5568;
-      font-size: 14px;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      font-size: 15px;
-      transition: all 0.3s ease;
-    }
-
-    .form-group input:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
-      outline: none;
-    }
-
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 15px;
-      margin-top: 24px;
-    }
-
-    .btn-cancel {
-      background-color: #edf2f7;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      color: #4a5568;
-    }
-
-    .btn-cancel:hover {
-      background-color: #e2e8f0;
-    }
-
-    /* Alert Messages */
-    .messages {
-      margin-bottom: 24px;
-    }
-
-    .alert {
-      padding: 16px;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      font-weight: 500;
-      border-left: 5px solid;
-      animation: slideIn 0.3s ease-out forwards;
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .alert-success {
-      background-color: #f0fff4;
-      border-color:rgb(24, 139, 216);
-      color:rgb(47, 53, 133);
-    }
-
-    .alert-error {
-      background-color: #fff5f5;
-      border-color: #e53e3e;
-      color: #c53030;
-    }
-
-    .alert-info {
-      background-color: #ebf8ff;
-      border-color: #4299e1;
-      color: #2b6cb0;
-    }
-    
-    /* Application status select */
-    select {
-      padding: 10px 14px;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      background-color: #f7fafc;
-      font-size: 14px;
-      color: #4a5568;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      padding-right: 30px;
-    }
-    
-    select:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
-      outline: none;
-    }
-
-    footer {
-      text-align: center;
-      padding: 24px;
-      background: #f7fafc;
-      font-size: 14px;
-      color: #718096;
-      border-top: 1px solid #edf2f7;
-      margin-top: auto;
-      position: relative;
-    }
-
-    footer::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 3px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 3px;
-    }
-
-    @media (max-width: 1024px) {
-      .charts {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .sidebar { 
-        width: 80px;
-        padding: 24px 15px;
-      }
-      
-      .sidebar h2 {
-        font-size: 0;
-      }
-      
-      .sidebar h2 i {
-        font-size: 26px;
-        margin: 0;
-      }
-      
-      .sidebar a {
-        justify-content: center;
-        padding: 15px;
-      }
-      
-      .sidebar a i {
-        margin: 0;
-        font-size: 20px;
-      }
-      
-      .sidebar a span {
-        display: none;
-      }
-      
-      .main {
-        margin-left: 80px;
-        width: calc(100% - 80px);
-      }
-      
-      .cards {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 576px) {
-      .sidebar { display: none; }
-      .main { margin-left: 0; width: 100%; }
-      .navbar { padding: 15px; }
-      .content { padding: 15px; }
-      .profile-info span { display: none; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<style>
+:root{--navy:#0f1b4d;--blue:#2d5bff;--blue-soft:#e9efff;--bg:#f3f5fa;--card:#fff;--ink:#1b2440;--muted:#6b7694;--line:#e6e9f2;--amber:#f59e0b;--teal:#14b8a6;--rose:#e11d6a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--ink);display:flex;min-height:100vh}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* Sidebar */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:248px;background:var(--navy);padding:28px 16px;display:flex;flex-direction:column;gap:4px;z-index:100}
+.brand{display:flex;align-items:center;gap:12px;color:#fff;font-weight:600;font-size:18px;margin:0 10px 30px}
+.brand i{width:38px;height:38px;border-radius:12px;background:var(--blue);display:grid;place-items:center;font-size:16px}
+.sidebar a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;color:#aab4d8;text-decoration:none;font-size:14px;font-weight:500;transition:background .2s,color .2s}
+.sidebar a i{width:20px;text-align:center}
+.sidebar a:hover{background:rgba(255,255,255,.07);color:#fff}
+.sidebar a.active{background:var(--blue);color:#fff}
+.sidebar .logout{margin-top:auto;color:#ffb4b4}
+.sidebar .logout:hover{background:rgba(255,120,120,.14);color:#fff}
+
+/* Layout */
+.main{margin-left:248px;width:calc(100% - 248px);display:flex;flex-direction:column;min-height:100vh}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 32px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:90}
+.topbar h1{font-size:20px;font-weight:600}
+.profile{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500;line-height:1.3}
+.profile small{display:block;color:var(--muted);font-size:12px;font-weight:400}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:600}
+.content{flex:1;padding:28px 32px;display:flex;flex-direction:column;gap:24px}
+.head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.head h2{font-size:20px;font-weight:600}
+
+/* Boutons */
+.btn{border:0;border-radius:10px;padding:10px 16px;font:500 14px 'Poppins',sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .2s,color .2s}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#1f45d6}
+.btn-soft{background:var(--blue-soft);color:var(--blue)}
+.btn-soft:hover{background:#d8e2ff}
+.btn-danger{background:#fff0f0;color:#d92d2d}
+.btn-danger:hover{background:#d92d2d;color:#fff}
+.btn-ghost{background:#eef0f6;color:var(--ink)}
+.btn-ghost:hover{background:#e1e5f0}
+
+/* Statistiques */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 24px;display:flex;align-items:center;gap:18px}
+.ico{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:21px}
+.i-blue{background:var(--blue-soft);color:var(--blue)}
+.i-amber{background:#fff4de;color:var(--amber)}
+.i-teal{background:#dcf7f3;color:var(--teal)}
+.stat strong{display:block;font-size:32px;font-weight:700;line-height:1.1}
+.stat span{color:var(--muted);font-size:14px}
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.chart{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}
+.chart h3{font-size:16px;font-weight:600;margin-bottom:18px}
+.chart canvas{max-height:320px}
+
+/* Tableaux */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:660px}
+th{text-align:left;padding:16px 20px;color:var(--muted);font-size:13px;font-weight:500;background:#fafbfe;border-bottom:1px solid var(--line)}
+td{padding:16px 20px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:#fafbff}
+.who{display:flex;align-items:center;gap:12px;font-weight:500}
+.mini{width:36px;height:36px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-weight:600}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+td form{display:inline-flex;gap:8px;align-items:center}
+.badge{padding:5px 12px;border-radius:30px;font-size:12px;font-weight:500;display:inline-block}
+.b-admin{background:var(--blue-soft);color:var(--blue)}
+.b-user{background:#dcf7f3;color:#0d8f82}
+.b-rec{background:#fff4de;color:#b97200}
+.b-info{background:#eef0f6;color:var(--ink)}
+.empty{text-align:center;padding:40px 16px;color:var(--muted)}
+
+/* Formulaires */
+input,select{width:100%;padding:11px 14px;border-radius:10px;border:1px solid var(--line);background:#f8f9fd;color:var(--ink);font:400 14px 'Poppins',sans-serif;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(45,91,255,.15);background:#fff}
+select{width:auto;min-width:170px}
+.field select{width:100%}
+label{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-bottom:6px}
+.field{margin-bottom:16px}
+
+/* Messages */
+.alert{padding:14px 18px;border-radius:12px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--blue);font-size:14px}
+.alert-success{border-left-color:var(--teal)}
+.alert-error{border-left-color:#d92d2d}
+
+/* Modales */
+.modal{display:none;position:fixed;inset:0;background:rgba(15,27,77,.5);backdrop-filter:blur(4px);z-index:1000;align-items:center;justify-content:center;padding:16px}
+.box{width:460px;max-width:100%;max-height:92vh;overflow-y:auto;background:var(--card);border-radius:20px;padding:28px;box-shadow:0 24px 60px rgba(15,27,77,.25)}
+.box-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.box-head h3{font-size:19px;font-weight:600}
+.x{background:none;border:0;color:var(--muted);font-size:26px;cursor:pointer;line-height:1}
+.x:hover{color:var(--ink)}
+.box-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:8px}
+
+footer{text-align:center;color:var(--muted);font-size:13px;padding:18px}
+
+@media (max-width:768px){
+  .sidebar{width:68px;padding:24px 10px;align-items:center}
+  .brand span,.sidebar a span{display:none}
+  .brand{margin:0 0 24px}
+  .sidebar a{padding:14px;justify-content:center}
+  .main{margin-left:68px;width:calc(100% - 68px)}
+  .topbar,.content{padding-left:18px;padding-right:18px}
+  .profile div:last-child{display:none}
+}
+@media (max-width:520px){.sidebar{display:none}.main{margin-left:0;width:100%}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
 
-  <div class="sidebar">
-    <h2><i class="fas fa-chart-line"></i> Dashboard</h2>
-    <a href="{% url 'admin_dashboard' %}" 
-       class="{% if section == 'stats' %}active{% endif %}">
-      <i class="fas fa-tachometer-alt"></i> Vue d'ensemble
-    </a>
-    <a href="{% url 'admin_dashboard' %}?section=users"
-       class="{% if section == 'users' %}active{% endif %}">
-       <i class="fas fa-users"></i> Utilisateurs
-    </a>
-    <a href="{% url 'admin_dashboard' %}?section=recruiters"
-    class="{% if section == 'recruiters' %}active{% endif %}">
-    <i class="fas fa-briefcase"></i> Recruteurs
- </a>
-    <a href="{% url 'admin_dashboard' %}?section=applications" class="{% if section == 'applications' %}active{% endif %}">
-      <i class="fas fa-clipboard-list"></i> Candidatures
-    </a>
-    
-    <a href="{% url 'login' %}"><i class="fas fa-sign-out-alt"></i> Deconnexion</a>
-  </div>
+<aside class="sidebar">
+  <div class="brand"><i class="fas fa-chart-line"></i><span>Dashboard</span></div>
+  <a href="{% url 'admin_dashboard' %}" class="{% if section == 'stats' %}active{% endif %}"><i class="fas fa-gauge-high"></i><span>Vue d'ensemble</span></a>
+  <a href="{% url 'admin_dashboard' %}?section=users" class="{% if section == 'users' %}active{% endif %}"><i class="fas fa-users"></i><span>Utilisateurs</span></a>
+  <a href="{% url 'admin_dashboard' %}?section=recruiters" class="{% if section == 'recruiters' %}active{% endif %}"><i class="fas fa-briefcase"></i><span>Recruteurs</span></a>
+  <a href="{% url 'admin_dashboard' %}?section=applications" class="{% if section == 'applications' %}active{% endif %}"><i class="fas fa-clipboard-list"></i><span>Candidatures</span></a>
+  <a href="{% url 'login' %}" class="logout"><i class="fas fa-right-from-bracket"></i><span>Déconnexion</span></a>
+</aside>
 
-  <div class="main">
-    <div class="navbar">
-      <h1>{% if section == 'stats' %}Vue d'ensemble{% elif section == 'users' %}Gestion des Utilisateurs{% endif %}</h1>
-      <div class="profile-info">
-        <div class="avatar">{{ request.user.username|first|upper }}</div>
-        <div>
-          <strong>{{ request.user.get_full_name|default:request.user.username }}</strong><br>
-          <span style="font-size: 12px; color: #888;">Administrateur</span>
-        </div>
-      </div>
+<div class="main">
+  <header class="topbar">
+    <h1>{% if section == 'users' %}Gestion des utilisateurs{% elif section == 'recruiters' %}Gestion des recruteurs{% elif section == 'applications' %}Suivi des candidatures{% else %}Vue d'ensemble{% endif %}</h1>
+    <div class="profile">
+      <div class="avatar">{{ request.user.username|first|upper }}</div>
+      <div>{{ request.user.get_full_name|default:request.user.username }}<small>Administrateur</small></div>
     </div>
+  </header>
 
-    <div class="content">
-      {% if section == 'recruiters' %}
-     
-      <div class="content-header">
-        <h2>Liste des Recruteurs</h2>
-       <!-- Button to trigger opening the Add Recruiter Modal -->
-<button onclick="openAddRecruiterModal()" class="add-btn">
-  <i class="fas fa-user-plus"></i> Ajouter recruteur
-</button>
+  <main class="content">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
 
-<!-- Add Recruiter Modal -->
-<div id="addRecruiterModal" style="display: none;">
-  <div class="modal-content">
-    <span id="closeAddRecruiterModal" style="cursor: pointer;">&times;</span>
-    <h3>Ajouter un Recruteur</h3>
-    
-<form id="addRecruiterForm" method="post">
-  {% csrf_token %}
-  <input type="hidden" name="action" value="add_recruteur">
-  
-  <label for="recruteur_username">Nom d'utilisateur:</label>
-  <input type="text" id="recruteur_username" name="username" required>
-
-  <label for="recruteur_email">Email:</label>
-  <input type="email" id="recruteur_email" name="email" required>
-
-  <label for="recruteur_password">Mot de passe:</label>
-  <input type="password" id="recruteur_password" name="password" required>
-
-  <button type="submit">Ajouter</button>
-</form>
-  </div>
-</div>   
+    {% if section == 'stats' %}
+      <div class="stats">
+        <div class="stat"><div class="ico i-blue"><i class="fas fa-users"></i></div><div><strong>{{ total_users }}</strong><span>Utilisateurs</span></div></div>
+        <div class="stat"><div class="ico i-amber"><i class="fas fa-briefcase"></i></div><div><strong>{{ total_recruiters }}</strong><span>Recruteurs</span></div></div>
+        <div class="stat"><div class="ico i-teal"><i class="fas fa-clipboard-list"></i></div><div><strong>{{ total_candidatures }}</strong><span>Candidatures</span></div></div>
       </div>
-      <table class="recruiters-table" style="border-collapse: separate; border-spacing: 0 40px; margin-top: -30px; ">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>RECRUTEUR</th>
-            <th>EMAIL</th>
-            <th>DATE D'INSCRIPTION</th>
-            <th>STATUS</th>
-            <th>ACTIONS</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for recruteur in recruteurs %}
+      <div class="charts">
+        <div class="chart"><h3>Répartition par catégorie</h3><canvas id="categoryChart"></canvas></div>
+        <div class="chart"><h3>Utilisateurs, recruteurs et candidatures</h3><canvas id="realStatsChart"></canvas></div>
+      </div>
+    {% endif %}
+
+    {% if section == 'users' %}
+      <div class="head">
+        <h2>Liste des utilisateurs</h2>
+        <button class="btn btn-primary" data-open="addUserModal"><i class="fas fa-user-plus"></i> Ajouter un utilisateur</button>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>ID</th><th>Utilisateur</th><th>Email</th><th>Prénom</th><th>Nom</th><th>Inscription</th><th>Statut</th><th>Actions</th></tr></thead>
+          <tbody>
+          {% for u in users_list %}
             <tr>
-              <td >{{ recruteur.id }}</td>
-              <td style="display: inline-block; margin-right: 30px; ">
-                <div style="display: flex; align-items: center;">
-                  <div class="user-avatar"   >{{ recruteur.username|first|upper }}</div>{{ recruteur.username }}
+              <td>{{ u.id }}</td>
+              <td><div class="who"><div class="mini">{{ u.username|first|upper }}</div>{{ u.username }}</div></td>
+              <td>{{ u.email }}</td>
+              <td>{{ u.first_name }}</td>
+              <td>{{ u.last_name }}</td>
+              <td>{{ u.date_joined|date:"d/m/Y" }}</td>
+              <td>
+                {% if u.is_staff %}
+                  <span class="badge b-admin">Admin</span>
+                {% elif u.role == 'recruteur' %}
+                  <span class="badge b-rec">Recruteur</span>
+                {% else %}
+                  <span class="badge b-user">Candidat</span>
+                {% endif %}
+              </td>
+              <td>
+                <div class="actions">
+                  <button class="btn btn-soft js-edit" data-id="{{ u.id }}" data-username="{{ u.username }}" data-email="{{ u.email }}" data-first="{{ u.first_name }}" data-last="{{ u.last_name }}"><i class="fas fa-pen"></i> Modifier</button>
+                  {% if u != request.user %}
+                  <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="delete_user">
+                    <input type="hidden" name="user_id" value="{{ u.id }}">
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Supprimer</button>
+                  </form>
+                  {% endif %}
                 </div>
               </td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="8" class="empty">Aucun utilisateur trouvé.</td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+
+    {% if section == 'recruiters' %}
+      <div class="head">
+        <h2>Liste des recruteurs</h2>
+        <button class="btn btn-primary" data-open="addRecruiterModal"><i class="fas fa-user-plus"></i> Ajouter un recruteur</button>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>ID</th><th>Recruteur</th><th>Email</th><th>Inscription</th><th>Statut</th><th>Actions</th></tr></thead>
+          <tbody>
+          {% for recruteur in recruteurs %}
+            <tr>
+              <td>{{ recruteur.id }}</td>
+              <td><div class="who"><div class="mini">{{ recruteur.username|first|upper }}</div>{{ recruteur.username }}</div></td>
               <td>{{ recruteur.email }}</td>
               <td>{{ recruteur.date_joined|date:"d/m/Y" }}</td>
-              <td >
-                <span class="status-badge {% if recruteur.is_staff %}status-admin{% else %}status-recruiter{% endif %}">
-                  {% if recruteur.is_staff %}Admin{% else %}Recruteur{% endif %}
-                </span>
+              <td><span class="badge {% if recruteur.is_staff %}b-admin{% else %}b-rec{% endif %}">{% if recruteur.is_staff %}Admin{% else %}Recruteur{% endif %}</span></td>
+              <td>
+                <div class="actions">
+                  <button class="btn btn-soft js-edit" data-id="{{ recruteur.id }}" data-username="{{ recruteur.username }}" data-email="{{ recruteur.email }}" data-first="" data-last=""><i class="fas fa-pen"></i> Modifier</button>
+                  <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce recruteur ?')">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="delete_recruteur">
+                    <input type="hidden" name="user_id" value="{{ recruteur.id }}">
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Supprimer</button>
+                  </form>
+                </div>
               </td>
-              <td class="table-actions">
-                <button class="btn-edit" onclick="openEditModal({{ recruteur.id }}, '{{ recruteur.username }}', '{{ recruteur.email }}')">
-                  <i class="fas fa-edit"></i> Modifier
-                </button>
-                <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce recruteur ?')" style="display: inline;">
+            </tr>
+          {% empty %}
+            <tr><td colspan="6" class="empty">Aucun recruteur trouvé.</td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+
+    {% if section == 'applications' %}
+      <div class="head"><h2>Toutes les candidatures</h2></div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>ID</th><th>Offre</th><th>Candidat</th><th>Date</th><th>Statut</th><th>Action</th></tr></thead>
+          <tbody>
+          {% for c in applications_list %}
+            <tr>
+              <td>{{ c.id }}</td>
+              <td>{{ c.offre.titre }}</td>
+              <td>{{ c.candidat.user.username }}</td>
+              <td>{{ c.date_envoi|date:"d/m/Y H:i" }}</td>
+              <td><span class="badge b-info">{{ c.get_statut_candidature_display }}</span></td>
+              <td>
+                <form method="post">
                   {% csrf_token %}
-                  <input type="hidden" name="action" value="delete_recruteur">
-                  <input type="hidden" name="user_id" value="{{ recruteur.id }}">
-                  <button type="submit" class="btn-delete">
-                    <i class="fas fa-trash"></i> Supprimer
-                  </button>
+                  <input type="hidden" name="action" value="change_application_status">
+                  <input type="hidden" name="candidature_id" value="{{ c.id }}">
+                  <select name="statut" required>
+                    {% for key,label in c.STATUT_CHOIX %}
+                      <option value="{{ key }}" {% if c.statut_candidature == key %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                  </select>
+                  <button type="submit" class="btn btn-primary">Mettre à jour</button>
                 </form>
               </td>
             </tr>
           {% empty %}
-            <tr>
-              <td colspan="6" style="text-align: center; padding: 30px;">Aucun recruteur trouvé.</td>
-            </tr>
+            <tr><td colspan="6" class="empty">Aucune candidature.</td></tr>
           {% endfor %}
-        </tbody>
-      </table>
-    {% endif %}
-    
-      {% if messages %}
-        <div class="messages">
-          {% for message in messages %}
-            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" 
-                 style="padding: 15px; margin-bottom: 20px; border-radius: 5px; 
-                        background-color: {% if message.tags == 'success' %}#d4edda{% elif message.tags == 'error' %}#f8d7da{% else %}#cce5ff{% endif %}; 
-                        color: {% if message.tags == 'success' %}#155724{% elif message.tags == 'error' %}#721c24{% else %}#004085{% endif %};">
-              {{ message }}
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
-
-     {% if section == 'stats' %}
-  <div class="cards">
-    <div class="card">
-      <div class="card-icon"><i class="fas fa-users"></i></div>
-      <h2>{{ total_users }}</h2>
-      <p>Utilisateurs</p>
-    </div>
-    <div class="card">
-      <div class="card-icon"><i class="fas fa-briefcase"></i></div>
-      <h2>{{ total_recruiters }}</h2>
-      <p>Recruteurs</p>
-    </div>
-    <div class="card">
-      <div class="card-icon"><i class="fas fa-clipboard-list"></i></div>
-      <h2>{{ total_candidatures }}</h2>
-      <p>Candidatures</p>
-    </div>
-  </div>
-
-  <div class="charts">
-    <!-- Graphique original Répartition par Catégorie (à garder tel quel) -->
-    <div class="chart-box">
-      <h2 style="color:#4e54c8; margin-bottom: 20px;">Répartition par Catégorie</h2>
-      <canvas id="categoryChart"></canvas>
-    </div>
-
-    <!-- Nouveau graphique de statistiques réelles -->
-    <div class="chart-box">
-      <h2 style="color:#4e54c8; margin-bottom: 20px;">Répartition : Utilisateurs - Recruteurs - Candidats</h2>
-      <canvas id="realStatsChart"></canvas>
-    </div>
-  </div>
-    {% endif %}
- {% if section == 'applications' %}
-      <div class="content-header">
-        <h2>Toutes les Candidatures</h2>
-      </div>
-    
-      <table class="users-table">
-        <thead>
-          <tr>
-            <th>ID</th><th>Offre</th><th>Candidat</th><th>Date</th><th>Statut</th><th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for c in applications_list %}
-          <tr>
-            <td>{{ c.id }}</td>
-            <td>{{ c.offre.titre }}</td>
-            <td>{{ c.candidat.user.username }}</td>
-            <td>{{ c.date_envoi|date:"d/m/Y H:i" }}</td>
-            <td>{{ c.get_statut_candidature_display }}</td>
-            <td>
-              <form method="post">
-                {% csrf_token %}
-                <input type="hidden" name="action" value="change_application_status">
-                <input type="hidden" name="candidature_id" value="{{ c.id }}">
-                <select name="statut" required     style="padding:8px 12px; border:1px solid #ccc; border-radius:5px;
-                background-color:#f9f9f9; font-size:14px; color:#333;">
-                  {% for key,label in c.STATUT_CHOIX %}
-                  <option value="{{ key }}" {% if c.statut_candidature == key %}selected{% endif %}>{{ label }}</option>
-     {% endfor %}
-                </select>
-                <button type="submit" class="btn-save">Mettre à jour</button>
-              </form>
-            </td>
-          </tr>
-          {% empty %}
-          <tr><td colspan="6" style="text-align:center;">Aucune candidature.</td></tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    {% endif %}
-
-      <!-- Section Gestion des utilisateurs -->
-      {% if section == 'users' %}
-        <div class="content-header">
-          <h2>Liste des Utilisateurs</h2>
-          <button id="openAddUserModal" class="btn-add-user">
-            <i class="fas fa-user-plus"></i> Ajouter un Utilisateur
-          </button>
-        </div>
-
-        <table class="users-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>UTILISATEUR</th>
-              <th>EMAIL</th>
-              <th>PRÉNOM</th>
-              <th>NOM</th>
-              <th>DATE D'INSCRIPTION</th>
-              <th>STATUS</th>
-              <th>ACTIONS</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for u in users_list %}
-              <tr>
-                <td>{{ u.id }}</td>
-                <td>
-                  <div style="display: flex; align-items: center;">
-                    <div class="user-avatar">{{ u.username|first|upper }}</div>
-                    {{ u.username }}
-                  </div>
-                </td>
-                <td>{{ u.email }}</td>
-                <td>{{ u.first_name }}</td>
-                <td>{{ u.last_name }}</td>
-                <td>{{ u.date_joined|date:"d/m/Y" }}</td>
-                <td>
-                  <span class="status-badge {% if u.is_staff %}status-admin{% else %}status-user{% endif %}">
-                    {% if u.is_staff %}Admin{% else %}Utilisateur{% endif %}
-                  </span>
-                </td>
-                <td class="table-actions">
-                  <button class="btn-edit" onclick="openEditModal({{ u.id }}, '{{ u.username }}', '{{ u.email }}', '{{ u.first_name }}', '{{ u.last_name }}')">
-                    <i class="fas fa-edit"></i> Modifier
-                  </button>
-                  {% if u != request.user %}
-                    <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')" style="display: inline;">
-                      {% csrf_token %}
-                      <input type="hidden" name="action" value="delete_user">
-                      <input type="hidden" name="user_id" value="{{ u.id }}">
-                      <button type="submit" class="btn-delete">
-                        <i class="fas fa-trash"></i> Supprimer
-                      </button>
-                    </form>
-                  {% endif %}
-                </td>
-              </tr>
-            {% empty %}
-              <tr>
-                <td colspan="8" style="text-align: center; padding: 30px;">Aucun utilisateur trouvé.</td>
-              </tr>
-            {% endfor %}
           </tbody>
         </table>
-      {% endif %}
-    </div>
-    <footer>© 2025 Dashboard Admin - Tous droits réservés.</footer>
-  <!-- Add User Modal -->
-  <div id="addUserModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Ajouter un Utilisateur</h2>
-        <span class="close-modal" id="closeAddModal">&times;</span>
       </div>
-      <form method="post">
-        {% csrf_token %}
-        <input type="hidden" name="action" value="add_user">
-        
-        <div class="form-group">
-          <label for="username">Nom d'utilisateur</label>
-          <input type="text" id="username" name="username" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email">
-        </div>
-        
-        <div class="form-group">
-          <label for="first_name">Prénom</label>
-          <input type="text" id="first_name" name="first_name">
-        </div>
-        
-        <div class="form-group">
-          <label for="last_name">Nom</label>
-          <input type="text" id="last_name" name="last_name">
-        </div>
-        
-        <div class="form-group">
-          <label for="password">Mot de passe</label>
-          <input type="password" id="password" name="password" required>
-        </div>
-        
-        <div class="modal-footer">
-          <button type="button" class="btn-cancel" id="cancelAddModal">Annuler</button>
-          <button type="submit" class="btn-save">Enregistrer</button>
-        </div>
-      </form>
-    </div>
-  </div>
+    {% endif %}
+  </main>
 
-  <!-- Edit User Modal -->
-  <div id="editUserModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Modifier l'Utilisateur</h2>
-        <span class="close-modal" id="closeEditModal">&times;</span>
+  <footer>© 2025 Dashboard Admin. Tous droits réservés.</footer>
+</div>
+
+<!-- Ajouter un utilisateur -->
+<div id="addUserModal" class="modal">
+  <div class="box">
+    <div class="box-head"><h3>Ajouter un utilisateur</h3><button class="x" data-close aria-label="Fermer">&times;</button></div>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="add_user">
+      <div class="field"><label for="username">Nom d'utilisateur</label><input type="text" id="username" name="username" required></div>
+      <div class="field"><label for="email">Email</label><input type="email" id="email" name="email"></div>
+      <div class="field"><label for="first_name">Prénom</label><input type="text" id="first_name" name="first_name"></div>
+      <div class="field"><label for="last_name">Nom</label><input type="text" id="last_name" name="last_name"></div>
+      <div class="field">
+        <label for="role">Rôle</label>
+        <select id="role" name="role" required>
+          <option value="candidat">Candidat</option>
+          <option value="recruteur">Recruteur</option>
+        </select>
       </div>
-      <form method="post">
-        {% csrf_token %}
-        <input type="hidden" name="action" value="edit_user">
-        <input type="hidden" id="edit_user_id" name="user_id">
-        
-        <div class="form-group">
-          <label for="edit_username">Nom d'utilisateur</label>
-          <input type="text" id="edit_username" name="username" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="edit_email">Email</label>
-          <input type="email" id="edit_email" name="email">
-        </div>
-        
-        <div class="form-group">
-          <label for="edit_first_name">Prénom</label>
-          <input type="text" id="edit_first_name" name="first_name">
-        </div>
-        
-        <div class="form-group">
-          <label for="edit_last_name">Nom</label>
-          <input type="text" id="edit_last_name" name="last_name">
-        </div>
-        
-
-        
-        <div class="modal-footer">
-          <button type="button" class="btn-cancel" id="cancelEditModal">Annuler</button>
-          <button type="submit" class="btn-save">Mettre à jour</button>
-        </div>
-      </form>
-    </div>
+      <div class="field"><label for="password">Mot de passe</label><input type="password" id="password" name="password" required></div>
+      <div class="box-foot">
+        <button type="button" class="btn btn-ghost" data-close>Annuler</button>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </form>
   </div>
+</div>
 
- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Modifier un utilisateur ou un recruteur -->
+<div id="editUserModal" class="modal">
+  <div class="box">
+    <div class="box-head"><h3>Modifier le compte</h3><button class="x" data-close aria-label="Fermer">&times;</button></div>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="edit_user">
+      <input type="hidden" id="edit_user_id" name="user_id">
+      <div class="field"><label for="edit_username">Nom d'utilisateur</label><input type="text" id="edit_username" name="username" required></div>
+      <div class="field"><label for="edit_email">Email</label><input type="email" id="edit_email" name="email"></div>
+      <div class="field"><label for="edit_first_name">Prénom</label><input type="text" id="edit_first_name" name="first_name"></div>
+      <div class="field"><label for="edit_last_name">Nom</label><input type="text" id="edit_last_name" name="last_name"></div>
+      <div class="box-foot">
+        <button type="button" class="btn btn-ghost" data-close>Annuler</button>
+        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Ajouter un recruteur -->
+<div id="addRecruiterModal" class="modal">
+  <div class="box">
+    <div class="box-head"><h3>Ajouter un recruteur</h3><button class="x" data-close aria-label="Fermer">&times;</button></div>
+    <form id="addRecruiterForm" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="add_recruteur">
+      <div class="field"><label for="recruteur_username">Nom d'utilisateur</label><input type="text" id="recruteur_username" name="username" required></div>
+      <div class="field"><label for="recruteur_email">Email</label><input type="email" id="recruteur_email" name="email" required></div>
+      <div class="field"><label for="recruteur_password">Mot de passe</label><input type="password" id="recruteur_password" name="password" required></div>
+      <div class="box-foot">
+        <button type="button" class="btn btn-ghost" data-close>Annuler</button>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // Charts (only render if elements exist)
-  if (document.getElementById('categoryChart')) {
-    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-    new Chart(categoryCtx, {
+  // Graphiques
+  Chart.defaults.font.family = "'Poppins', sans-serif";
+  Chart.defaults.color = '#6b7694';
+  const cat = document.getElementById('categoryChart');
+  if (cat) {
+    new Chart(cat, {
       type: 'doughnut',
       data: {
         labels: ['Frontend', 'Backend', 'Design', 'Autres'],
-        datasets: [{
-          data: [30, 40, 20, 10],
-          backgroundColor: ['#667eea', 'rgb(247, 162, 59)', 'rgb(198, 55, 148)', 'rgb(99, 198, 237)']
-        }]
+        datasets: [{ data: [30, 40, 20, 10], backgroundColor: ['#2d5bff', '#14b8a6', '#f59e0b', '#e11d6a'], borderColor: '#fff', borderWidth: 3 }]
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { position: 'bottom' }
-        }
-      }
+      options: { responsive: true, cutout: '64%', plugins: { legend: { position: 'bottom' } } }
     });
   }
-
-  // Nouveau graphique de statistiques réelles
-  if (document.getElementById('realStatsChart')) {
-    const realStatsCtx = document.getElementById('realStatsChart').getContext('2d');
-    new Chart(realStatsCtx, {
+  const real = document.getElementById('realStatsChart');
+  if (real) {
+    new Chart(real, {
       type: 'bar',
       data: {
-        labels: ['Utilisateurs', 'Recruteurs', 'Candidats'],
+        labels: ['Utilisateurs', 'Recruteurs', 'Candidatures'],
         datasets: [{
           label: 'Total',
-            data: [{{ total_users }}, {{ total_recruiters }}, {{  total_candidats}}],
-          backgroundColor: [
-            'rgba(83, 171, 230, 0.6)',
-            'rgba(243, 30, 190, 0.6)',
-            'rgba(238, 231, 40, 0.6)'
-          ],
-          borderColor: [
-            'rgba(54, 162, 235, 1)',
-            'rgb(218, 64, 192)',
-            'rgba(220, 227, 23, 0.6)'
-          ],
-          borderWidth: 1
+          data: [{{ total_users|default:0 }}, {{ total_recruiters|default:0 }}, {{ total_candidatures|default:0 }}],
+          backgroundColor: ['#2d5bff', '#f59e0b', '#14b8a6'],
+          borderRadius: 10,
+          maxBarThickness: 64
         }]
       },
       options: {
         responsive: true,
-        plugins: {
-          legend: { position: 'top' }
-        },
+        plugins: { legend: { display: false } },
         scales: {
-          y: {
-            beginAtZero: true,
-            precision: 0
-          }
+          y: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: '#eef0f6' } },
+          x: { grid: { display: false } }
         }
       }
     });
   }
 
-  // Modal functionality
-  const addUserModal = document.getElementById('addUserModal');
-  const editUserModal = document.getElementById('editUserModal');
-
-  // Add user modal
-  if (document.getElementById('openAddUserModal')) {
-    document.getElementById('openAddUserModal').addEventListener('click', () => {
-      addUserModal.style.display = 'block';
+  // Modales
+  const openModal = id => { document.getElementById(id).style.display = 'flex'; };
+  document.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => openModal(b.dataset.open)));
+  document.querySelectorAll('.modal').forEach(m => {
+    m.addEventListener('click', e => {
+      if (e.target === m || e.target.closest('[data-close]')) m.style.display = 'none';
     });
-  }
-
-  if (document.getElementById('closeAddModal')) {
-    document.getElementById('closeAddModal').addEventListener('click', () => {
-      addUserModal.style.display = 'none';
-    });
-  }
-
-  if (document.getElementById('cancelAddModal')) {
-    document.getElementById('cancelAddModal').addEventListener('click', () => {
-      addUserModal.style.display = 'none';
-    });
-  }
-
-  // Edit user modal
-  function openEditModal(id, username, email, firstName, lastName) {
-    document.getElementById('edit_user_id').value = id;
-    document.getElementById('edit_username').value = username;
-    document.getElementById('edit_email').value = email;
-    document.getElementById('edit_first_name').value = firstName;
-    document.getElementById('edit_last_name').value = lastName;
-    editUserModal.style.display = 'block';
-  }
-
-  if (document.getElementById('closeEditModal')) {
-    document.getElementById('closeEditModal').addEventListener('click', () => {
-      editUserModal.style.display = 'none';
-    });
-  }
-
-  if (document.getElementById('cancelEditModal')) {
-    document.getElementById('cancelEditModal').addEventListener('click', () => {
-      editUserModal.style.display = 'none';
-    });
-  }
-
-  // Close modals when clicking outside
-  window.addEventListener('click', (event) => {
-    if (event.target === addUserModal) {
-      addUserModal.style.display = 'none';
-    }
-    if (event.target === editUserModal) {
-      editUserModal.style.display = 'none';
-    }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.modal').forEach(m => { m.style.display = 'none'; });
   });
 
-  // Get modal elements (DO NOT assign style.display here!)
-  const addRecruiterModal = document.getElementById('addRecruiterModal');
-  const closeAddRecruiterModal = document.getElementById('closeAddRecruiterModal');
-
-  // Function to open the modal
-  function openAddRecruiterModal() {
-    addRecruiterModal.style.display = 'flex';
-  }
-
-  // Close modal when clicking the close (X) button
-  if (closeAddRecruiterModal) {
-    closeAddRecruiterModal.addEventListener('click', () => {
-      addRecruiterModal.style.display = 'none';
-    });
-  }
-
-  // Close modal if clicked outside of the modal content
-  window.addEventListener('click', (event) => {
-    if (event.target === addRecruiterModal) {
-      addRecruiterModal.style.display = 'none';
-    }
-  });
+  // Modifier un compte
+  document.querySelectorAll('.js-edit').forEach(b => b.addEventListener('click', () => {
+    const d = b.dataset;
+    document.getElementById('edit_user_id').value = d.id;
+    document.getElementById('edit_username').value = d.username;
+    document.getElementById('edit_email').value = d.email;
+    document.getElementById('edit_first_name').value = d.first || '';
+    document.getElementById('edit_last_name').value = d.last || '';
+    openModal('editUserModal');
+  }));
 </script>
-
-
 </body>
 </html>
